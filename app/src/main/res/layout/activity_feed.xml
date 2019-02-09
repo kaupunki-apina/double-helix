@@ -21,4 +21,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <fragment
+            android:id="@+id/feed_fragment"
+            android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:showIn="@layout/activity_feed"
+            tools:layout="@layout/fragment_feed"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 </android.support.design.widget.CoordinatorLayout>
