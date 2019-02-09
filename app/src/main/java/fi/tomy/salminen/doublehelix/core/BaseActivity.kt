@@ -8,21 +8,13 @@ import fi.tomy.salminen.doublehelix.inject.Injector
 
 abstract class BaseActivity<T> : AppCompatActivity(), Injector<T> {
 
-    private var component: T? = null
+    val component: T by lazy {
+        createComponent()
+    }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inject()
     }
-
-    override fun component(): T {
-        if (component == null) {
-            component = createComponent()
-        }
-
-        return component as T
-    }
-
-    protected abstract fun createComponent(): T
 }

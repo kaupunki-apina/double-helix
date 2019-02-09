@@ -7,21 +7,13 @@ import android.app.Application
 
 abstract class BaseApplication<T> : Application(), Injector<T> {
 
-    private var component: T? = null
+    val component: T by lazy {
+        createComponent()
+    }
 
     @CallSuper
     override fun onCreate() {
         super.onCreate()
         inject()
     }
-
-    override fun component(): T {
-        if (component == null) {
-            component = createComponent()
-        }
-        return component as T
-    }
-
-    protected abstract fun createComponent(): T
-
 }

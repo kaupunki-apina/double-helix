@@ -7,7 +7,7 @@ import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationModule
 class DoubleHelixApplication : BaseApplication<DoubleHelixApplicationComponent>() {
 
     override fun inject() {
-        component().inject(this)
+        component.inject(this)
     }
 
     override fun createComponent(): DoubleHelixApplicationComponent {
