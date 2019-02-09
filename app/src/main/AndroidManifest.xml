@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="fi.tomy.salminen.doublehelix">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
             android:name=".app.DoubleHelixApplication"
             android:allowBackup="true"
@@ -10,6 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity
                 android:name=".feature.feed.FeedActivity"
                 android:label="@string/title_activity_feed"
