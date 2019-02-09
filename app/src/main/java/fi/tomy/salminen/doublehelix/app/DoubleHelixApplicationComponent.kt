@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.Component
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityComponent
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityModule
+import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationComponent
 import javax.inject.Singleton
@@ -20,5 +21,8 @@ interface DoubleHelixApplicationComponent : BaseApplicationComponent {
 
     fun inject(application: DoubleHelixApplication)
 
-    fun plus(module: FeedActivityComponent) : FeedActivityComponent
+    fun plus(
+        feedActivityModule: FeedActivityModule,
+        baseActivityModule: BaseActivityModule
+    ): FeedActivityComponent
 }

@@ -18,10 +18,9 @@ class FeedActivity : BaseActivity<FeedActivityComponent>() {
     }
 
     override fun createComponent(): FeedActivityComponent {
-        return (application as DoubleHelixApplication).component.plus(DaggerFeedActivityComponent.builder()
-            .feedActivityModule(FeedActivityModule())
-            .baseActivityModule(BaseActivityModule(this))
-            .build()
+        return (application as DoubleHelixApplication).component.plus(
+            FeedActivityModule(),
+            BaseActivityModule(this)
         )
     }
 
