@@ -9,9 +9,15 @@ import android.view.ViewGroup
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.BaseFragment
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
+import fi.tomy.salminen.doublehelix.service.http.IHttpService
+import io.reactivex.rxkotlin.subscribeBy
+import javax.inject.Inject
 
 
 class FeedFragment : BaseFragment<FeedFragmentComponent>() {
+
+    @Inject
+    lateinit var httpService: IHttpService
 
     companion object {
         fun newInstance() = FeedFragment()
@@ -33,5 +39,11 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
 
     override fun inject() {
         component.inject(this)
+        httpService.getXml("http://www.nasa.gov/rss/dyn/educationnews.rss")
+            .subscribeBy(
+                onNext = { println(it) },
+                onError =  { it.printStackTrace() },
+                onComplete = { println("Done!") }
+            )
     }
 }

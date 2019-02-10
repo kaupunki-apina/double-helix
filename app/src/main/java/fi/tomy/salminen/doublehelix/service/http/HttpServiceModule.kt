@@ -5,6 +5,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 import android.app.Application
+import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationModule
 import okhttp3.Cache
 
 
