@@ -34,7 +34,6 @@ ext {
             constraintLayout: '1.1.3',
             dagger2         : '2.21',
             extensions      : '1.1.1',
-            jackson         : '2.9.8',
             okHttp          : '3.13.1',
             retrofit        : '2.5.0',
             rxAndroid       : '2.1.0',
@@ -67,6 +66,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$dependencyVersions.rxKotlin"
     implementation "io.reactivex.rxjava2:rxandroid:$dependencyVersions.rxAndroid"
 
-    // Jackson
-    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$dependencyVersions.jackson"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$dependencyVersions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$dependencyVersions.retrofit"
+    implementation "com.squareup.retrofit2:converter-simplexml:$dependencyVersions.retrofit"
 }
