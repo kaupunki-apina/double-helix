@@ -1,11 +1,9 @@
-package fi.tomy.salminen.doublehelix.feature.feed.model
+package fi.tomy.salminen.doublehelix.service.rss
 
-import org.simpleframework.xml.Element
-import org.simpleframework.xml.ElementList
-import org.simpleframework.xml.Root
+import org.simpleframework.xml.*
 
 @Root(name = "rss", strict = false)
-class RssSubscriptionModel {
+class RssModel {
 
     @field:Element
     var channel: RssChannel? = null
@@ -36,6 +34,10 @@ class RssSubscriptionModel {
 
             @field:Element(name = "pubDate", required = false)
             var publishDate: String? = null
+
+            @Path("enclosure")
+            @field:Attribute(name = "url", required = false)
+            var image: String? = null
         }
     }
 }

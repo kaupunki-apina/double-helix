@@ -8,13 +8,21 @@ import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationComponent
 import fi.tomy.salminen.doublehelix.service.http.HttpServiceModule
+import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedComponent
+import fi.tomy.salminen.doublehelix.service.persistence.PersistenceModule
+import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedModule
+import fi.tomy.salminen.doublehelix.service.rss.RssServiceModule
 import javax.inject.Singleton
 
 
-@Component(modules = [
-    DoubleHelixApplicationModule::class,
-    HttpServiceModule::class
-])
+@Component(
+    modules = [
+        DoubleHelixApplicationModule::class,
+        HttpServiceModule::class,
+        RssServiceModule::class,
+        PersistenceModule::class
+    ]
+)
 @Singleton
 interface DoubleHelixApplicationComponent : BaseApplicationComponent {
 
@@ -29,4 +37,6 @@ interface DoubleHelixApplicationComponent : BaseApplicationComponent {
         feedActivityModule: FeedActivityModule,
         baseActivityModule: BaseActivityModule
     ): FeedActivityComponent
+
+    fun plus(seedModule: SeedModule): SeedComponent
 }

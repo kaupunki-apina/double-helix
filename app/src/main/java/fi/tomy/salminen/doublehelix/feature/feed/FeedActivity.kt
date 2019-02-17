@@ -7,9 +7,11 @@ import fi.tomy.salminen.doublehelix.core.BaseActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 
 import kotlinx.android.synthetic.main.activity_feed.*
+import javax.inject.Inject
 
 
 class FeedActivity : BaseActivity<FeedActivityComponent>() {
+    @Inject lateinit var feedViewModel : FeedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

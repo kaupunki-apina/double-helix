@@ -34,13 +34,12 @@ class HttpServiceModule {
 
     @Provides
     @Singleton
-    fun provideRssService(okHttpClient: OkHttpClient): RssService {
+    fun provideRssService(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("http://null.com/") // Doesn't matter. Will be ignored later
             .client(okHttpClient)
             .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build()
-            .create(RssService::class.java)
     }
 }

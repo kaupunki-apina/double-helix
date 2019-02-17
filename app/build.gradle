@@ -36,6 +36,7 @@ ext {
             extensions      : '1.1.1',
             okHttp          : '3.13.1',
             retrofit        : '2.5.0',
+            room            : '1.1.1',
             rxAndroid       : '2.1.0',
             rxKotlin        : '2.3.0'
     ]
@@ -70,4 +71,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$dependencyVersions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$dependencyVersions.retrofit"
     implementation "com.squareup.retrofit2:converter-simplexml:$dependencyVersions.retrofit"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:$dependencyVersions.room"
+    kapt "android.arch.persistence.room:compiler:$dependencyVersions.room"
 }
