@@ -16,23 +16,23 @@ import android.support.annotation.Nullable
     )
 ])
 class SubscriptionEntity(
-    @field:PrimaryKey(autoGenerate = true)
-    @field:NonNull
-    val id: Int,
-
     @field:NonNull
     @field:ColumnInfo(name = "feed_id")
-    val feedId: Int,
+    var feedId: Int,
 
     @field:NonNull
-    val url: String,
+    var url: String,
 
     @field:Nullable
-    val description: String?
+    var description: String?
 ) {
+    @field:PrimaryKey(autoGenerate = true)
+    @field:NonNull
+    var id: Int = 1
+
     companion object {
         fun seed(): Array<SubscriptionEntity> {
-            return arrayOf(SubscriptionEntity(1, 1, "http://www.nasa.gov/rss/dyn/educationnews.rss", null))
+            return arrayOf(SubscriptionEntity(1, "http://www.nasa.gov/rss/dyn/educationnews.rss", null))
         }
     }
 }

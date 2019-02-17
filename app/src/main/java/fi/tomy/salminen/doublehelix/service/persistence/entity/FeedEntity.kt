@@ -6,16 +6,16 @@ import android.support.annotation.NonNull
 
 @Entity(tableName = "feed_table")
 class FeedEntity(
+    @field:NonNull
+    var name: String
+) {
     @field:PrimaryKey(autoGenerate = true)
     @field:NonNull
-    val id: Int,
+    var id: Int = 1
 
-    @field:NonNull
-    val name: String
-) {
     companion object {
         fun seed(): Array<FeedEntity> {
-            return arrayOf(FeedEntity(1, "NASA news"))
+            return arrayOf(FeedEntity("NASA news"))
         }
     }
 }

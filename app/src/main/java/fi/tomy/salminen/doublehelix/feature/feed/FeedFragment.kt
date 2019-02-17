@@ -33,6 +33,5 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
 
     override fun inject() {
         component.inject(this)
-        System.out.print("")
     }
 }
