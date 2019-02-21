@@ -1,12 +1,13 @@
 package fi.tomy.salminen.doublehelix.inject.activity
 
 import android.content.Context
+import android.support.v7.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
 
 
 @Module
-class BaseActivityModule(private val activity: android.app.Activity) {
+class BaseActivityModule(private val activity: AppCompatActivity) {
 
     @Provides
     @ActivityScope
@@ -17,7 +18,7 @@ class BaseActivityModule(private val activity: android.app.Activity) {
 
     @Provides
     @ActivityScope
-    internal fun provideActivity(): android.app.Activity {
+    internal fun provideActivity(): AppCompatActivity {
         return activity
     }
 }

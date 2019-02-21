@@ -74,5 +74,6 @@ dependencies {
 
     // Room
     implementation "android.arch.persistence.room:runtime:$dependencyVersions.room"
+    implementation "android.arch.persistence.room:rxjava2:$dependencyVersions.room"
     kapt "android.arch.persistence.room:compiler:$dependencyVersions.room"
 }

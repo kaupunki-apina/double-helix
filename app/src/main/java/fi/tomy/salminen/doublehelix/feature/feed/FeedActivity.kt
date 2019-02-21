@@ -1,7 +1,6 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+
 import android.os.Bundle
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
@@ -13,18 +12,14 @@ import javax.inject.Inject
 
 
 class FeedActivity : BaseActivity<FeedActivityComponent>() {
-    @Inject lateinit var vmFactory : FeedActivityViewModel.Factory
-    lateinit var vm : FeedActivityViewModel
+    @Inject lateinit var pagerAdapter: FeedPagerAdapter
+    @Inject lateinit var viewModel : FeedActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
         setSupportActionBar(toolbar)
-        vm = ViewModelProviders.of(this, vmFactory)[FeedActivityViewModel::class.java]
-        vm.feed.observe(this, Observer {
-            // TODO
-        })
-
+        viewPager.adapter = pagerAdapter
     }
 
     override fun createComponent(): FeedActivityComponent {
