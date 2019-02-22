@@ -8,7 +8,7 @@ import android.support.annotation.NonNull
 import android.support.annotation.Nullable
 
 
-@Entity(tableName = "subscription_table", foreignKeys = [
+@Entity(tableName = "subscription", foreignKeys = [
     ForeignKey(
         entity = FeedEntity::class,
         parentColumns = ["id"],

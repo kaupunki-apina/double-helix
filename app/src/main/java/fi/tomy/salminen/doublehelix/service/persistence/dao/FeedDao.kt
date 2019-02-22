@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 
 @Dao
 interface FeedDao {
-    @Query("SELECT * FROM feed_table")
+    @Query("SELECT * FROM feed")
     fun getAll(): Flowable<List<FeedEntity>>
 
     @Insert

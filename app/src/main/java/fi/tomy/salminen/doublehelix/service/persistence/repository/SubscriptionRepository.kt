@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
+
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import io.reactivex.Observable
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class SubscriptionRepository @Inject constructor(database: DoubleHelixDatabase) {
     private val subscriptionDao = database.subscriptionDao()
+
     val subscription = subscriptionDao.getAll()
 
 

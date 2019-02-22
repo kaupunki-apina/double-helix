@@ -24,7 +24,7 @@ class FeedPagerAdapter(fragmentManager: FragmentManager, feedFlow : Flowable<Lis
     }
 
     override fun getItem(position: Int): Fragment {
-        return FeedFragment.newInstance()
+        return FeedFragment.newInstance(feed[position].id)
     }
 
     override fun getCount(): Int {

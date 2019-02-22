@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.support.annotation.NonNull
 
-@Entity(tableName = "feed_table")
+@Entity(tableName = "feed")
 class FeedEntity(
     @field:NonNull
     var name: String
