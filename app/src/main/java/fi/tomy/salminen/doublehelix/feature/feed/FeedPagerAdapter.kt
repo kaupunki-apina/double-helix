@@ -1,9 +1,9 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.FeedViewModel
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable

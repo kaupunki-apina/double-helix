@@ -1,7 +1,7 @@
 package fi.tomy.salminen.doublehelix.service.persistence.seed
 
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.room.RoomDatabase
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.inject.Injector
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase

@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.app
 
+import android.app.Application
 import android.content.Context
 import dagger.Component
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityComponent
@@ -26,7 +27,7 @@ import javax.inject.Singleton
 @Singleton
 interface DoubleHelixApplicationComponent : BaseApplicationComponent {
 
-    override val application: android.app.Application
+    override val application: Application
 
     @get:ForApplication
     override val applicationContext: Context

@@ -1,6 +1,6 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import fi.tomy.salminen.doublehelix.service.persistence.entity.FeedEntity
 import fi.tomy.salminen.doublehelix.service.persistence.repository.FeedRepository
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.FeedViewModel

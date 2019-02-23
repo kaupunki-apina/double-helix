@@ -2,7 +2,7 @@ package fi.tomy.salminen.doublehelix.inject.fragment
 
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import dagger.Module
 import dagger.Provides
 

@@ -1,7 +1,7 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule

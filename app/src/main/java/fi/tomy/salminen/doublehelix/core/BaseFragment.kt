@@ -1,8 +1,8 @@
 package fi.tomy.salminen.doublehelix.core
 
 import android.os.Bundle
-import android.support.annotation.CallSuper
-import android.support.v4.app.Fragment
+import androidx.annotation.CallSuper
+import androidx.fragment.app.Fragment
 import fi.tomy.salminen.doublehelix.inject.Injector
 
 abstract class BaseFragment<T> : Fragment(), Injector<T> {

@@ -1,12 +1,12 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.BaseFragment

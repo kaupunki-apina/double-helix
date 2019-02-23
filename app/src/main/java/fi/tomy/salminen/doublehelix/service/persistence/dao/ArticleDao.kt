@@ -1,6 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import io.reactivex.Flowable
 

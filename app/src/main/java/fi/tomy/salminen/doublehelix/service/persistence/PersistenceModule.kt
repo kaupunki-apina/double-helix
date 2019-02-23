@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import fi.tomy.salminen.doublehelix.service.persistence.seed.DatabaseSeed
 

@@ -1,7 +1,7 @@
 package fi.tomy.salminen.doublehelix.service.persistence
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.dao.ArticleDao
 import fi.tomy.salminen.doublehelix.service.persistence.dao.FeedDao
 import fi.tomy.salminen.doublehelix.service.persistence.dao.SubscriptionDao

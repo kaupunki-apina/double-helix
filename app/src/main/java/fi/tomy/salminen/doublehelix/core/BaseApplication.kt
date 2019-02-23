@@ -1,6 +1,6 @@
 package fi.tomy.salminen.doublehelix.core
 
-import android.support.annotation.CallSuper
+import androidx.annotation.CallSuper
 import fi.tomy.salminen.doublehelix.inject.Injector
 import android.app.Application
 
