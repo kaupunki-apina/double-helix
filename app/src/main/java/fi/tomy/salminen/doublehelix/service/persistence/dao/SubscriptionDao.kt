@@ -12,6 +12,10 @@ interface SubscriptionDao {
     @Query("SELECT * FROM subscription")
     fun getAll(): Flowable<List<SubscriptionEntity>>
 
+    @Query( "SELECT * FROM subscription " +
+            "WHERE feed_id = :feedId")
+    fun getWhere(feedId: Int): Flowable<List<SubscriptionEntity>>
+
     @Insert
     fun insertAll(vararg dataEntities: SubscriptionEntity)
 }

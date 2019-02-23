@@ -33,7 +33,10 @@ class DatabaseSeed(val application: android.app.Application) : RoomDatabase.Call
     override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
         inject()
-        feedRepository.insertFeed(*FeedEntity.seed()).subscribe()
-        subscriptionRepository.insertSubscription(*SubscriptionEntity.seed()).subscribe()
+        feedRepository.insertFeed(*FeedEntity.seed())
+            .doOnNext{
+                subscriptionRepository.insertSubscription(*SubscriptionEntity.seed()).subscribe()
+            }
+            .subscribe()
     }
 }

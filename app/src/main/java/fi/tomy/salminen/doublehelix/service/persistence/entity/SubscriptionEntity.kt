@@ -28,7 +28,7 @@ class SubscriptionEntity(
 ) {
     @field:PrimaryKey(autoGenerate = true)
     @field:NonNull
-    var id: Int = 1
+    var id: Int = 0
 
     companion object {
         fun seed(): Array<SubscriptionEntity> {

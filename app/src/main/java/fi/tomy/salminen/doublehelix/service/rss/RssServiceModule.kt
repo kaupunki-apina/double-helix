@@ -10,7 +10,7 @@ class RssServiceModule {
 
     @Provides
     @Singleton
-    fun provideRssService(retrofit: Retrofit) : RssServiceApi {
-        return retrofit.create(RssServiceApi::class.java)
+    fun provideRssService(retrofit: Retrofit) : RssService {
+        return retrofit.create(RssService::class.java)
     }
 }

@@ -16,6 +16,9 @@ class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : 
 
     fun getArticlesWhere(feedId: Int): LiveData<List<ArticleViewModel>> {
         val mutableLiveData: MutableLiveData<List<ArticleViewModel>> = MutableLiveData()
+
+        articleRepository.updateArticles(feedId)
+
         compositeDisposable.add(
             articleRepository.getWhere(feedId)
                 .subscribe {

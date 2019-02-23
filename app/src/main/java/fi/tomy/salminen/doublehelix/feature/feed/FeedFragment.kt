@@ -15,7 +15,8 @@ import javax.inject.Inject
 
 class FeedFragment : BaseFragment<FeedFragmentComponent>() {
 
-    @Inject lateinit var viewModel: FeedFragmentViewModel
+    @Inject
+    lateinit var viewModel: FeedFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +48,7 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
     }
 
     companion object {
-        private val FEED_ID = "arg_feed_id";
+        private val FEED_ID = "arg_feed_id"
 
         fun newInstance(feedId: Int): FeedFragment {
             val fragment = FeedFragment()
