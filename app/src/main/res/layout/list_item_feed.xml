@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="articleViewModel"
+                type="fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="24sp"
+                android:text='@{articleViewModel.title}'
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

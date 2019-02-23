@@ -5,10 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
-import fi.tomy.salminen.doublehelix.service.persistence.repository.FeedRepository
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
-import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.FeedViewModel
-import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 
 class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
