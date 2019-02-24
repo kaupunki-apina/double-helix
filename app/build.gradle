@@ -33,11 +33,11 @@ android {
 
 ext {
     dependencyVersions = [
-            androidSupport  : '1.0.0-beta01',
-            androidMaterial : '1.0.0',
+            androidSupport  : '1.0.0',
+            androidMaterial : '1.1.0-alpha03',
             constraintLayout: '1.1.2',
             dagger2         : '2.21',
-            extensions      : '2.0.0-beta01',
+            extensions      : '2.1.0-alpha02',
             okHttp          : '3.13.1',
             retrofit        : '2.5.0',
             room            : '2.0.0-beta01',
@@ -53,7 +53,7 @@ dependencies {
     // Android Support
     implementation "androidx.appcompat:appcompat:$dependencyVersions.androidSupport"
     implementation "androidx.legacy:legacy-support-v4:$dependencyVersions.androidSupport"
-    implementation "com.google.android.material:material:$dependencyVersions.androidSupport"
+    implementation "com.google.android.material:material:$dependencyVersions.androidMaterial"
     implementation "androidx.constraintlayout:constraintlayout:$dependencyVersions.constraintLayout"
 
     // View model
