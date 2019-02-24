@@ -1,16 +1,17 @@
 package fi.tomy.salminen.doublehelix.service.persistence.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import io.reactivex.Flowable
 
 
 @Dao
 abstract class ArticleDao {
-    @Query("SELECT * FROM article " +
-            "LEFT JOIN subscription ON subscription.id = article.subscription_id " +
-            "WHERE subscription.feed_id = :feedId")
-    abstract fun getWhere(feedId: Int): Flowable<List<ArticleEntity>>
+    @Query("SELECT * FROM article")
+    abstract fun getAll(): Flowable<List<ArticleEntity>>
 
     @Query("DELETE FROM article WHERE subscription_id = :subscriptionId")
     abstract fun deleteWhere(subscriptionId: Int)

@@ -1,25 +1,13 @@
 package fi.tomy.salminen.doublehelix.service.persistence.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "subscription", foreignKeys = [
-    ForeignKey(
-        entity = FeedEntity::class,
-        parentColumns = ["id"],
-        childColumns = ["feed_id"]
-    )
-])
+@Entity(tableName = "subscription")
 class SubscriptionEntity(
-    @field:NonNull
-    @field:ColumnInfo(name = "feed_id")
-    var feedId: Int,
-
     @field:NonNull
     var url: String,
 
@@ -32,7 +20,7 @@ class SubscriptionEntity(
 
     companion object {
         fun seed(): Array<SubscriptionEntity> {
-            return arrayOf(SubscriptionEntity(1, "http://www.nasa.gov/rss/dyn/educationnews.rss", null))
+            return arrayOf(SubscriptionEntity("http://www.nasa.gov/rss/dyn/educationnews.rss", null))
         }
     }
 }
