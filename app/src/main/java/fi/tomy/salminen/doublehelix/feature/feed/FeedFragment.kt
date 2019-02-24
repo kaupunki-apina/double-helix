@@ -1,13 +1,12 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
 
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
-
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.BaseFragment
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
@@ -44,15 +43,11 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         super.onActivityCreated(savedInstanceState)
         feed_view.adapter = adapter
         feed_view.layoutManager = layoutManager
-
-        if (arguments != null) {
-            var feedId = arguments!!.getInt(FEED_ID)
-            viewModel.getArticlesWhere(feedId).observe(this, Observer {
-                if (it != null) {
-                    adapter.setArticles(it)
-                }
-            })
-        }
+        viewModel.getArticles().observe(this, Observer {
+            if (it != null) {
+                adapter.setArticles(it)
+            }
+        })
     }
 
     override fun inject() {
@@ -60,15 +55,8 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
     }
 
     companion object {
-        private val FEED_ID = "arg_feed_id"
-
-        fun newInstance(feedId: Int): FeedFragment {
-            val fragment = FeedFragment()
-            fragment.arguments = Bundle().apply {
-                putInt(FEED_ID, feedId)
-            }
-
-            return fragment
+        fun newInstance(): FeedFragment {
+            return FeedFragment()
         }
     }
 }

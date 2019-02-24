@@ -5,21 +5,19 @@ import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
 import fi.tomy.salminen.doublehelix.service.rss.RssService
 import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ArticleRepository @Inject constructor(
-    val database: DoubleHelixDatabase,
+    database: DoubleHelixDatabase,
     val rssService: RssService
 ) {
     private val articleDao = database.articleDao()
     private val subscriptionDao = database.subscriptionDao()
 
-    fun getWhere(feedId: Int): Flowable<List<ArticleViewModel>> {
-        return articleDao.getWhere(feedId)
+    fun getArticles(): Flowable<List<ArticleViewModel>> {
+        return articleDao.getAll()
             .map { entities ->
                 entities.map { entity ->
                     ArticleViewModel(entity)
@@ -27,8 +25,8 @@ class ArticleRepository @Inject constructor(
             }
     }
 
-    fun updateArticles(feedId: Int) {
-        subscriptionDao.getWhere(feedId)
+    fun updateArticles() {
+        subscriptionDao.getAll()
             .flatMap { Flowable.fromIterable(it) }
             .flatMap { subscriptionEntity ->
                 rssService.getRssFeed(subscriptionEntity.url)

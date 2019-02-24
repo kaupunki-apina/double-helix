@@ -1,11 +1,11 @@
 package fi.tomy.salminen.doublehelix.service.persistence.entity
 
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
 
 @Entity(tableName = "article", foreignKeys = [
@@ -40,10 +40,6 @@ class ArticleEntity(
     var id: Int = 0
 
     companion object {
-        fun seed(): Array<FeedEntity> {
-            return arrayOf(FeedEntity("NASA news"))
-        }
-
         fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): ArticleEntity {
             return ArticleEntity(
                 rssItem.title,

@@ -12,14 +12,12 @@ import javax.inject.Inject
 
 
 class FeedActivity : BaseActivity<FeedActivityComponent>() {
-    @Inject lateinit var pagerAdapter: FeedPagerAdapter
     @Inject lateinit var viewModel : FeedActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
         setSupportActionBar(toolbar)
-        viewPager.adapter = pagerAdapter
     }
 
     override fun createComponent(): FeedActivityComponent {
