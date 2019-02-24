@@ -27,6 +27,8 @@
 
         <!-- Component styles -->
         <item name="actionBarTheme">@style/AppTheme.ActionBar</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
