@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-                name="articleViewModel"
-                type="fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel"/>
+            name="articleViewModel"
+            type="fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:textSize="24sp"
-                android:text='@{articleViewModel.title}'
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text='@{articleViewModel.title}'
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
