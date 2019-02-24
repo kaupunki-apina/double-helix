@@ -7,13 +7,13 @@
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/secondaryColor</item>
         <!-- Extended app colors -->
+        <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
         <item name="colorOnPrimary">@color/primaryTextColor</item>
         <item name="colorOnSecondary">@color/primaryTextColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
 
         <!-- Text styling -->
-        <!-- Override defaults-->
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="android:textColorTertiary">@color/tertiaryTextColor</item>
@@ -21,14 +21,14 @@
         <item name="android:textColorSecondaryInverse">@color/secondaryTextColor</item>
         <item name="android:textColorTertiaryInverse">@color/tertiaryTextColor</item>
         <item name="android:fontFamily">@font/open_sans</item>
-        <!-- Extended styling -->
-        <!-- TODO Extend MaterialComponent text styles -->
-
 
         <!-- Component styles -->
-        <item name="actionBarTheme">@style/AppTheme.ActionBar</item>
+        <!-- System components -->
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
+        <!-- Support library components -->
+        <item name="actionBarTheme">@style/AppTheme.ActionBar</item>
+        <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="AppTheme">
@@ -36,6 +36,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <!-- Override background drawable once supported -->
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="AppTheme"/>
     <style name="AppTheme.PopupOverlay" parent="AppTheme"/>
 </resources>

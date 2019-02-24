@@ -7,4 +7,6 @@ class ArticleViewModel(val entity: ArticleEntity) {
     val id = entity.id
 
     val title : String get() = entity.title ?: ""
+    val description : String get() = entity.description ?: ""
+    val publishDate : String get() = entity.publishDate?: ""
 }
