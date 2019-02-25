@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "subscription")
-class SubscriptionEntity(
+data class SubscriptionEntity(
     @field:NonNull
     var url: String,
 
@@ -20,7 +20,7 @@ class SubscriptionEntity(
 
     companion object {
         fun seed(): Array<SubscriptionEntity> {
-            return arrayOf(SubscriptionEntity("http://www.nasa.gov/rss/dyn/educationnews.rss", null))
+            return arrayOf(SubscriptionEntity("http://www.nasa.gov/rss/dyn/educationnews.rss", "NASA Education"))
         }
     }
 }

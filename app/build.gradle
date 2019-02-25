@@ -40,7 +40,7 @@ ext {
             extensions      : '2.1.0-alpha02',
             okHttp          : '3.13.1',
             retrofit        : '2.5.0',
-            room            : '2.0.0-beta01',
+            room            : '2.1.0-alpha04',
             rxAndroid       : '2.1.0',
             rxKotlin        : '2.3.0'
     ]

@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_m"
-            android:text='Subscription'
+            android:text='@{articleViewModel.subscription}'
             tools:text="Subscription"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/feed_item_image"/>

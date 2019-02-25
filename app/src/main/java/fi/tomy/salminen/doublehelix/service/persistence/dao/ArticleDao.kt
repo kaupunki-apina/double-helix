@@ -4,16 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import io.reactivex.Flowable
 
 
 @Dao
 abstract class ArticleDao {
-    @Query("SELECT * FROM article")
-    abstract fun getAll(): Flowable<List<ArticleEntity>>
+    @Query("SELECT * FROM article_database_view")
+    abstract fun getAll(): Flowable<List<ArticleDatabaseView>>
 
-    @Query("DELETE FROM article WHERE subscription_id = :subscriptionId")
+    @Query("DELETE FROM article WHERE subscriptionId = :subscriptionId")
     abstract fun deleteWhere(subscriptionId: Int)
 
     @Insert
