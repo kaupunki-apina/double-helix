@@ -1,8 +1,8 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.databinding.ListItemFeedBinding

@@ -4,10 +4,9 @@ import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleData
 
 
 class ArticleViewModel(val article: ArticleDatabaseView) {
-    val id = article.id
-
+    val id: Int get() = article.id
     val title: String get() = article.title ?: ""
     val description: String get() = article.description ?: ""
     val publishDate: String get() = article.publishDate ?: ""
-    val subscription: String get() =  article.subscriptionDescription ?: ""
+    val subscription: String get() = article.subscriptionDescription ?: ""
 }

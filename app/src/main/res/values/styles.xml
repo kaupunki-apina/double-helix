@@ -41,4 +41,8 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="AppTheme"/>
     <style name="AppTheme.PopupOverlay" parent="AppTheme"/>
+
+    <style name="AppTheme.Touchable" parent="AppTheme">
+        <item name="android:background">@drawable/drawable_touchable</item>
+    </style>
 </resources>
