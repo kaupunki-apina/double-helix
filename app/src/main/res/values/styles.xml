@@ -24,14 +24,12 @@
 
         <!-- Component styles -->
         <!-- System components -->
-        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowIsFloating">false</item>
         <!-- Support library components -->
-        <item name="actionBarTheme">@style/AppTheme.ActionBar</item>
         <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
-    </style>
-
-    <style name="AppTheme.ActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
