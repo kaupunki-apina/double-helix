@@ -43,4 +43,10 @@
     <style name="AppTheme.Touchable" parent="AppTheme">
         <item name="android:background">@drawable/drawable_touchable</item>
     </style>
+
+    <style name="AppTheme.ViewRoot">
+        <item name="android:clipChildren">false</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:paddingTop">24dp</item>
+    </style>
 </resources>

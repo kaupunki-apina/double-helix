@@ -45,7 +45,7 @@ data class ArticleEntity(
                 rssItem.description,
                 rssItem.link,
                 rssItem.publishDate,
-                rssItem.image,
+                rssItem.enclosure?.url,
                 subscriptionEntity.id
             )
         }

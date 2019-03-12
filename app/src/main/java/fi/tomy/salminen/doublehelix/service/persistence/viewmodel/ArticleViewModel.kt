@@ -9,4 +9,5 @@ class ArticleViewModel(val article: ArticleDatabaseView) {
     val description: String get() = article.description ?: ""
     val publishDate: String get() = article.publishDate ?: ""
     val subscription: String get() = article.subscriptionDescription ?: ""
+    val imageUrl: String? get() = article.imageUrl
 }
