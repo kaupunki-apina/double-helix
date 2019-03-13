@@ -2,6 +2,7 @@ package fi.tomy.salminen.doublehelix.service.persistence
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import fi.tomy.salminen.doublehelix.service.persistence.dao.ArticleDao
 import fi.tomy.salminen.doublehelix.service.persistence.dao.SubscriptionDao
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
@@ -18,6 +19,7 @@ import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntit
     ],
     version = 1
 )
+@TypeConverters(Converter::class)
 abstract class DoubleHelixDatabase : RoomDatabase() {
     abstract fun subscriptionDao(): SubscriptionDao
     abstract fun articleDao(): ArticleDao

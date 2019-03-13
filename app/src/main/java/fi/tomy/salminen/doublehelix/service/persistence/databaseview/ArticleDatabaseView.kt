@@ -1,6 +1,7 @@
 package fi.tomy.salminen.doublehelix.service.persistence.databaseview
 
 import androidx.room.DatabaseView
+import java.util.*
 
 
 @DatabaseView(
@@ -16,7 +17,7 @@ data class ArticleDatabaseView(
     var title: String?,
     var description: String?,
     var link: String?,
-    var publishDate: String?,
+    var publishDate: Date?,
     var imageUrl: String?,
     var subscriptionId: Int,
     var subscriptionDescription: String?

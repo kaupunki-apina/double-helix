@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
+import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
@@ -11,7 +12,9 @@ import javax.inject.Singleton
 @Singleton
 class ArticleRepository @Inject constructor(
     database: DoubleHelixDatabase,
-    val rssService: RssService
+    val rssService: RssService,
+    val articleFactory: ArticleEntity.Factory,
+    val dateFormatter: DateFormatter
 ) {
     private val articleDao = database.articleDao()
     private val subscriptionDao = database.subscriptionDao()
@@ -20,7 +23,7 @@ class ArticleRepository @Inject constructor(
         return articleDao.getAll()
             .map { entities ->
                 entities.map { entity ->
-                    ArticleViewModel(entity)
+                    ArticleViewModel(entity, dateFormatter)
                 }
             }
     }
@@ -32,7 +35,7 @@ class ArticleRepository @Inject constructor(
                 rssService.getRssFeed(subscriptionEntity.url)
                     .map { rssModel ->
                         rssModel.channel?.items?.map { rssItem ->
-                            ArticleEntity.from(
+                            articleFactory.from(
                                 rssItem,
                                 subscriptionEntity
                             )
