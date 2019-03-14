@@ -11,7 +11,7 @@ import io.reactivex.Flowable
 
 @Dao
 abstract class ArticleDao {
-    @Query("SELECT * FROM article_database_view")
+    @Query("SELECT * FROM article_database_view ORDER BY publishDate DESC")
     abstract fun getAll(): Flowable<List<ArticleDatabaseView>>
 
     @Query("DELETE FROM article WHERE subscriptionId = :subscriptionId")
