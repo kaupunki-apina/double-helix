@@ -5,16 +5,22 @@ import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
+import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
-@Entity(tableName = "article", foreignKeys = [
-    ForeignKey(
-        entity = SubscriptionEntity::class,
-        parentColumns = ["id"],
-        childColumns = ["subscriptionId"]
-    )
-])
+@Entity(
+    tableName = "article", foreignKeys = [
+        ForeignKey(
+            entity = SubscriptionEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["subscriptionId"]
+        )
+    ]
+)
 data class ArticleEntity(
     @field:Nullable
     var title: String?,
@@ -26,7 +32,7 @@ data class ArticleEntity(
     var link: String?,
 
     @field:Nullable
-    var publishDate: String?,
+    var publishDate: Date?,
 
     @field:Nullable
     var imageUrl: String?,
@@ -38,13 +44,14 @@ data class ArticleEntity(
     @field:NonNull
     var id: Int = 0
 
-    companion object {
+    @Singleton
+    class Factory @Inject constructor(val dateFormatter: DateFormatter) {
         fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): ArticleEntity {
             return ArticleEntity(
                 rssItem.title,
                 rssItem.description,
                 rssItem.link,
-                rssItem.publishDate,
+                dateFormatter.parse(rssItem.publishDate),
                 rssItem.enclosure?.url,
                 subscriptionEntity.id
             )

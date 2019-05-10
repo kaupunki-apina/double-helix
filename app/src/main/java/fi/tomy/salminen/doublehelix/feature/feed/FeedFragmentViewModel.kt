@@ -10,10 +10,11 @@ import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewMod
 
 class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : BaseViewModel() {
 
+    private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = mutableIsLoading
+
     fun getArticles(): LiveData<List<ArticleViewModel>> {
         val mutableLiveData: MutableLiveData<List<ArticleViewModel>> = MutableLiveData()
-
-        articleRepository.updateArticles()
 
         compositeDisposable.add(
             articleRepository.getArticles()
@@ -22,6 +23,17 @@ class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : 
                 })
 
         return mutableLiveData
+    }
+
+    fun updateArticles() {
+        compositeDisposable.add(articleRepository.updateArticles()
+            .doOnSubscribe {
+                mutableIsLoading.postValue( true)
+            }
+            .doOnComplete {
+                mutableIsLoading.postValue(false)
+            }
+            .subscribe())
     }
 
     class Factory(val articleRepository: ArticleRepository) : ViewModelProvider.Factory {

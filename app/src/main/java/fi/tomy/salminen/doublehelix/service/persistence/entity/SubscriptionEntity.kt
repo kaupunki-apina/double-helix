@@ -20,7 +20,11 @@ data class SubscriptionEntity(
 
     companion object {
         fun seed(): Array<SubscriptionEntity> {
-            return arrayOf(SubscriptionEntity("http://www.nasa.gov/rss/dyn/educationnews.rss", "NASA Education"))
+            return arrayOf(
+                SubscriptionEntity("http://www.nasa.gov/rss/dyn/educationnews.rss", "NASA Education"),
+                SubscriptionEntity("https://www.nasa.gov/rss/dyn/breaking_news.rss", "NASA Breaking news"),
+                SubscriptionEntity("https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss", "NASA Image of the day")
+            )
         }
     }
 }
