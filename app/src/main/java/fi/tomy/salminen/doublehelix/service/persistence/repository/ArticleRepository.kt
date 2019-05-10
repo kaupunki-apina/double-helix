@@ -6,6 +6,8 @@ import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
 import fi.tomy.salminen.doublehelix.service.rss.RssService
 import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,8 +30,11 @@ class ArticleRepository @Inject constructor(
             }
     }
 
-    fun updateArticles() {
-        subscriptionDao.getAll()
+    fun updateArticles(): Flowable<List<ArticleEntity>> {
+        return subscriptionDao.getAllMaybe()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .toFlowable()
             .flatMap { Flowable.fromIterable(it) }
             .flatMap { subscriptionEntity ->
                 rssService.getRssFeed(subscriptionEntity.url)
@@ -46,6 +51,6 @@ class ArticleRepository @Inject constructor(
                             articleDao.update(subscriptionEntity.id, articleEntities.value!!)
                         }
                     }
-            }.subscribe()
+            }
     }
 }

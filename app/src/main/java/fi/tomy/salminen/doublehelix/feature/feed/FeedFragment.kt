@@ -48,6 +48,16 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
                 adapter.setArticles(it)
             }
         })
+
+        swipe_refresh.setOnRefreshListener {
+            viewModel.updateArticles()
+        }
+
+        viewModel.isLoading.observe(this, Observer {
+            swipe_refresh.isRefreshing = it
+        })
+
+        viewModel.updateArticles()
     }
 
     override fun inject() {

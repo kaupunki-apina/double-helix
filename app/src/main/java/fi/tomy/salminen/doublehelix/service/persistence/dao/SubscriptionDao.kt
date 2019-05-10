@@ -5,12 +5,16 @@ import androidx.room.Insert
 import androidx.room.Query
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 
 @Dao
 interface SubscriptionDao {
     @Query("SELECT * FROM subscription")
     fun getAll(): Flowable<List<SubscriptionEntity>>
+
+    @Query("SELECT * FROM subscription")
+    fun getAllMaybe(): Maybe<List<SubscriptionEntity>>
 
     @Insert
     fun insertAll(vararg dataEntities: SubscriptionEntity)
