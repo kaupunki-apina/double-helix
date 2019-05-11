@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 
 
 @Dao
@@ -16,7 +17,7 @@ abstract class ArticleDao {
     abstract fun getAll(): LiveData<List<ArticleDatabaseView>>
 
     @Query("SELECT * FROM article_database_view WHERE id = :articleId")
-    abstract fun getWhere(articleId: Int): Flowable<ArticleDatabaseView>
+    abstract fun getWhereMaybe(articleId: Int): Maybe<ArticleDatabaseView>
 
     @Query("DELETE FROM article WHERE subscriptionId = :subscriptionId")
     abstract fun deleteWhere(subscriptionId: Int)

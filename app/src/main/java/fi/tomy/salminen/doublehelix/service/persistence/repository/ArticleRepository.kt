@@ -6,6 +6,7 @@ import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleData
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.rss.RssService
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -24,8 +25,8 @@ class ArticleRepository @Inject constructor(
         return articleDao.getAll()
     }
 
-    fun getArticleById(articleId: Int): Flowable<ArticleDatabaseView> {
-        return articleDao.getWhere(articleId)
+    fun getArticleById(articleId: Int): Maybe<ArticleDatabaseView> {
+        return articleDao.getWhereMaybe(articleId).subscribeOn(Schedulers.io())
     }
 
     fun updateArticles(): Flowable<List<ArticleEntity>> {
