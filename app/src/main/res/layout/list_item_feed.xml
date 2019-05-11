@@ -18,7 +18,8 @@
         android:paddingBottom="@dimen/margin_m"
         android:paddingTop="@dimen/margin_m"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:onClick="@{articleViewModel::onClick}">
 
         <ImageView
             android:id="@+id/feed_item_image"
