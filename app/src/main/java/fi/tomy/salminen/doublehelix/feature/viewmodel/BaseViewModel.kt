@@ -1,11 +1,10 @@
-package fi.tomy.salminen.doublehelix.core
+package fi.tomy.salminen.doublehelix.feature.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 
-abstract class BaseViewModel(val app: Application) : AndroidViewModel(app) {
+abstract class BaseViewModel : ViewModel() {
     protected val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {

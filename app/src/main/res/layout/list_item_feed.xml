@@ -6,7 +6,7 @@
     <data>
         <variable
             name="articleViewModel"
-            type="fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel"/>
+            type="fi.tomy.salminen.doublehelix.feature.feed.ArticleListItemViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

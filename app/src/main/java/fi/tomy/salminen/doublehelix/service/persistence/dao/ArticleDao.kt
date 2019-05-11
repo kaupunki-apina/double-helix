@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -12,7 +13,10 @@ import io.reactivex.Flowable
 @Dao
 abstract class ArticleDao {
     @Query("SELECT * FROM article_database_view ORDER BY publishDate DESC")
-    abstract fun getAll(): Flowable<List<ArticleDatabaseView>>
+    abstract fun getAll(): LiveData<List<ArticleDatabaseView>>
+
+    @Query("SELECT * FROM article_database_view WHERE id = :articleId")
+    abstract fun getWhere(articleId: Int): Flowable<ArticleDatabaseView>
 
     @Query("DELETE FROM article WHERE subscriptionId = :subscriptionId")
     abstract fun deleteWhere(subscriptionId: Int)

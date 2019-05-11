@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Module
 import dagger.Provides
+import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import fi.tomy.salminen.doublehelix.inject.fragment.ForFragment
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
@@ -15,8 +16,16 @@ import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleReposi
 @Module(includes = [BaseFragmentModule::class])
 class FeedFragmentModule {
     @Provides
-    fun provideFeedFragmentViewModelFactory(articleRepository: ArticleRepository, app: Application): FeedFragmentViewModel.Factory {
+    fun provideFeedFragmentViewModelFactory(
+        articleRepository: ArticleRepository,
+        app: Application
+    ): FeedFragmentViewModel.Factory {
         return FeedFragmentViewModel.Factory(articleRepository, app)
+    }
+
+    @Provides
+    fun provideArticleListItemViewModelFactory(dateFormatter: DateFormatter): ArticleListItemViewModel.Factory {
+        return ArticleListItemViewModel.Factory(dateFormatter)
     }
 
     @Provides
@@ -25,8 +34,8 @@ class FeedFragmentModule {
     }
 
     @Provides
-    fun provideArticleListAdapter(): ArticleListAdapter {
-        return ArticleListAdapter()
+    fun provideArticleListAdapter(vmFactory: ArticleListItemViewModel.Factory): ArticleListAdapter {
+        return ArticleListAdapter(vmFactory)
     }
 
 
