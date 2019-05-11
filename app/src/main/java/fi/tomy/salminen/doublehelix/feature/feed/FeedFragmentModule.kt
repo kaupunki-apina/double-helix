@@ -1,8 +1,9 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import androidx.lifecycle.ViewModelProviders
+import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Module
@@ -14,8 +15,8 @@ import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleReposi
 @Module(includes = [BaseFragmentModule::class])
 class FeedFragmentModule {
     @Provides
-    fun provideFeedFragmentViewModelFactory(articleRepository: ArticleRepository): FeedFragmentViewModel.Factory {
-        return FeedFragmentViewModel.Factory(articleRepository)
+    fun provideFeedFragmentViewModelFactory(articleRepository: ArticleRepository, app: Application): FeedFragmentViewModel.Factory {
+        return FeedFragmentViewModel.Factory(articleRepository, app)
     }
 
     @Provides

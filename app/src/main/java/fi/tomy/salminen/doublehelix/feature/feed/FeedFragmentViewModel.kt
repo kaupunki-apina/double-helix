@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,7 @@ import fi.tomy.salminen.doublehelix.core.BaseViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
 
-class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : BaseViewModel() {
+class FeedFragmentViewModel(private val articleRepository: ArticleRepository, app: Application) : BaseViewModel(app) {
 
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = mutableIsLoading
@@ -36,9 +37,9 @@ class FeedFragmentViewModel(private val articleRepository: ArticleRepository) : 
             .subscribe())
     }
 
-    class Factory(val articleRepository: ArticleRepository) : ViewModelProvider.Factory {
+    class Factory(val articleRepository: ArticleRepository, val app : Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedFragmentViewModel(articleRepository) as T
+            return FeedFragmentViewModel(articleRepository, app) as T
         }
     }
 }
