@@ -1,11 +1,12 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
-import fi.tomy.salminen.doublehelix.common.DateFormatter
+import androidx.lifecycle.LiveData
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
+import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
-import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
 import fi.tomy.salminen.doublehelix.service.rss.RssService
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -15,19 +16,17 @@ import javax.inject.Singleton
 class ArticleRepository @Inject constructor(
     database: DoubleHelixDatabase,
     val rssService: RssService,
-    val articleFactory: ArticleEntity.Factory,
-    val dateFormatter: DateFormatter
+    val articleFactory: ArticleEntity.Factory
 ) {
     private val articleDao = database.articleDao()
     private val subscriptionDao = database.subscriptionDao()
 
-    fun getArticles(): Flowable<List<ArticleViewModel>> {
+    fun getArticles(): LiveData<List<ArticleDatabaseView>> {
         return articleDao.getAll()
-            .map { entities ->
-                entities.map { entity ->
-                    ArticleViewModel(entity, dateFormatter)
-                }
-            }
+    }
+
+    fun getArticleById(articleId: Int): Maybe<ArticleDatabaseView> {
+        return articleDao.getWhereMaybe(articleId).subscribeOn(Schedulers.io())
     }
 
     fun updateArticles(): Flowable<List<ArticleEntity>> {

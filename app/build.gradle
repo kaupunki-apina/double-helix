@@ -35,6 +35,7 @@ ext {
     dependencyVersions = [
             androidSupport  : '1.0.0',
             androidMaterial : '1.1.0-alpha04',
+            chromeTabs      : '1.0.0',
             constraintLayout: '1.1.2',
             dagger2         : '2.21',
             extensions      : '2.1.0-alpha02',
@@ -56,6 +57,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$dependencyVersions.androidSupport"
     implementation "com.google.android.material:material:$dependencyVersions.androidMaterial"
     implementation "androidx.constraintlayout:constraintlayout:$dependencyVersions.constraintLayout"
+    implementation "androidx.browser:browser:$dependencyVersions.chromeTabs"
 
     // View model
     implementation "androidx.lifecycle:lifecycle-extensions:$dependencyVersions.extensions"

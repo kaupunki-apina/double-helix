@@ -13,12 +13,12 @@ import java.util.*
             "LEFT JOIN subscription ON subscription.id = article.subscriptionId"
 )
 data class ArticleDatabaseView(
-    var id: Int,
-    var title: String?,
-    var description: String?,
-    var link: String?,
-    var publishDate: Date?,
-    var imageUrl: String?,
-    var subscriptionId: Int,
-    var subscriptionDescription: String?
+    val id: Int,
+    val title: String?,
+    val description: String?,
+    val link: String?,
+    val publishDate: Date?,
+    val imageUrl: String?,
+    val subscriptionId: Int,
+    val subscriptionDescription: String?
 )

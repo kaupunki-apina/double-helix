@@ -1,5 +1,6 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import dagger.Module
@@ -11,8 +12,8 @@ import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 class FeedActivityModule {
 
     @Provides
-    fun provideFeedActivityViewModelFactory(): FeedActivityViewModel.Factory {
-        return FeedActivityViewModel.Factory()
+    fun provideFeedActivityViewModelFactory(app: Application): FeedActivityViewModel.Factory {
+        return FeedActivityViewModel.Factory(app)
     }
 
     @Provides
