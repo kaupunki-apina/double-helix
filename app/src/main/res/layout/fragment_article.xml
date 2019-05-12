@@ -13,9 +13,5 @@
         android:layout_height="match_parent"
         tools:showIn="@layout/activity_feed"
         tools:context=".feature.article.ArticleFragment">
-        <WebView
-            android:id="@+id/article_webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
