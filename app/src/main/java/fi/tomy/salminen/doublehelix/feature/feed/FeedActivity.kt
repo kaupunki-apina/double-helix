@@ -5,11 +5,12 @@ import android.os.Bundle
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.core.BaseActivity
+import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import javax.inject.Inject
 
 
-class FeedActivity : BaseActivity<FeedActivityComponent>() {
+class FeedActivity : FullScreenActivity<FeedActivityComponent>() {
     @Inject
     lateinit var viewModel: FeedActivityViewModel
 
