@@ -1,19 +1,24 @@
 package fi.tomy.salminen.doublehelix.service.persistence
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 
 class Converter {
     //region Date converter
+    private val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return if (value == null) null else Date(value)
+    fun toOffsetDateTime(value: String?): ZonedDateTime? {
+        return value?.let {
+            return formatter.parse(value, ZonedDateTime::from)
+        }
     }
 
     @TypeConverter
-    fun toTimestamp(date: Date?): Long? {
-        return date?.time
+    fun fromOffsetDateTime(date: ZonedDateTime?): String? {
+        return date?.format(formatter)
     }
     //endregion
 }
