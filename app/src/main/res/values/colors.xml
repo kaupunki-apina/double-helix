@@ -10,5 +10,5 @@
     <color name="secondaryTextColor">#99000000</color>
     <color name="tertiaryTextColor">#61000000</color>
     <color name="surface">#fafafa</color>
-    <color name="statusBar">#ebfafafa</color>
+    <color name="statusBar">#ebffffff</color>
 </resources>

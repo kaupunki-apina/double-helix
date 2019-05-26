@@ -27,7 +27,6 @@
         <item name="android:statusBarColor">@color/statusBar</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowIsFloating">false</item>
         <!-- Support library components -->
         <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
         <item name="windowActionBar">false</item>
@@ -42,11 +41,5 @@
 
     <style name="AppTheme.Touchable" parent="AppTheme">
         <item name="android:background">@drawable/drawable_touchable</item>
-    </style>
-
-    <style name="AppTheme.ViewRoot">
-        <item name="android:clipChildren">false</item>
-        <item name="android:clipToPadding">false</item>
-        <item name="android:paddingTop">24dp</item>
     </style>
 </resources>
