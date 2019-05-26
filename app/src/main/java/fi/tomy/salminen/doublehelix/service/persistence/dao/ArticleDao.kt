@@ -13,7 +13,7 @@ import io.reactivex.Maybe
 
 @Dao
 abstract class ArticleDao {
-    @Query("SELECT * FROM article_database_view ORDER BY publishDate DESC")
+    @Query("SELECT * FROM article_database_view ORDER BY datetime(publishDate) DESC")
     abstract fun getAll(): LiveData<List<ArticleDatabaseView>>
 
     @Query("SELECT * FROM article_database_view WHERE id = :articleId")

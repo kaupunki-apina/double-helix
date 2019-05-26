@@ -7,7 +7,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
-import java.util.*
+import java.time.ZonedDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +32,7 @@ data class ArticleEntity(
     var link: String?,
 
     @field:Nullable
-    var publishDate: Date?,
+    var publishDate: ZonedDateTime?,
 
     @field:Nullable
     var imageUrl: String?,
