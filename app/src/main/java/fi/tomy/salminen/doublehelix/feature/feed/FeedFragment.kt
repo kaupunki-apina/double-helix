@@ -2,9 +2,7 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
@@ -12,6 +10,7 @@ import fi.tomy.salminen.doublehelix.core.BaseFragment
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 
 
 class FeedFragment : BaseFragment<FeedFragmentComponent>() {
@@ -29,6 +28,7 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_feed, container, false)
     }
 
@@ -39,8 +39,15 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         )
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_feed, menu)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as BaseActivity<*>).setSupportActionBar(bottom_bar)
+        bottom_bar.setOnMenuItemClickListener(this::onMenuItemSelected)
         feed_view.adapter = adapter
         feed_view.layoutManager = layoutManager
         viewModel.getArticles().observe(this, Observer {
@@ -58,6 +65,14 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         })
 
         viewModel.updateArticles()
+    }
+
+    private fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            // R.id.action_feed_add -> TODO Open bottom drawer
+        }
+
+        return true
     }
 
     override fun inject() {
