@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
+import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 
 
@@ -19,5 +20,10 @@ class FeedActivityModule {
     @Provides
     fun provideFeedViewModel(activity: AppCompatActivity, factory: FeedActivityViewModel.Factory): FeedActivityViewModel {
         return ViewModelProviders.of(activity, factory)[FeedActivityViewModel::class.java]
+    }
+
+    @Provides
+    fun provideChromeCustomTabBinder() : ChromeCustomTabBinder {
+        return ChromeCustomTabBinder()
     }
 }
