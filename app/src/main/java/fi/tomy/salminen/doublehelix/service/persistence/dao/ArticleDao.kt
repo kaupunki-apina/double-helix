@@ -19,15 +19,17 @@ abstract class ArticleDao {
     @Query("SELECT * FROM article_database_view WHERE id = :articleId")
     abstract fun getWhereMaybe(articleId: Int): Maybe<ArticleDatabaseView>
 
-    @Query("DELETE FROM article WHERE subscriptionId = :subscriptionId")
-    abstract fun deleteWhere(subscriptionId: Int)
+    @Query("DELETE FROM article WHERE subscriptionId IN(:subscriptionId)")
+    abstract fun deleteWhere(subscriptionId: IntArray)
 
     @Insert
     abstract fun insert(articles: List<ArticleEntity>)
 
     @Transaction
-    open fun update(subscriptionId: Int, articles: List<ArticleEntity>) {
-        deleteWhere(subscriptionId)
+    open fun update(articles: List<ArticleEntity>) {
+        deleteWhere(articles.map {
+            it.subscriptionId
+        }.distinct().toIntArray())
         insert(articles)
     }
 }

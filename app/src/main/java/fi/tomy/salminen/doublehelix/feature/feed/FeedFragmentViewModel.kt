@@ -21,7 +21,7 @@ class FeedFragmentViewModel(
     val isLoading: LiveData<Boolean> get() = mutableIsLoading
 
     init {
-        compositeDisposable.addAll(subscriptionRepository.subscription.forEach {
+        compositeDisposable.add(subscriptionRepository.subscription.forEach {
             updateArticles()
         })
     }
