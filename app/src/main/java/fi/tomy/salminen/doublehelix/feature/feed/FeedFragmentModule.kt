@@ -12,15 +12,17 @@ import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import fi.tomy.salminen.doublehelix.inject.fragment.ForFragment
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
+import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
 @Module(includes = [BaseFragmentModule::class])
 class FeedFragmentModule {
     @Provides
     fun provideFeedFragmentViewModelFactory(
         articleRepository: ArticleRepository,
+        subscriptionRepository: SubscriptionRepository,
         app: Application
     ): FeedFragmentViewModel.Factory {
-        return FeedFragmentViewModel.Factory(articleRepository, app)
+        return FeedFragmentViewModel.Factory(articleRepository, subscriptionRepository, app)
     }
 
     @Provides

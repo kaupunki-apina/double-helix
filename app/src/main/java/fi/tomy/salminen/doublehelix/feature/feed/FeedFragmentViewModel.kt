@@ -8,11 +8,23 @@ import androidx.lifecycle.ViewModelProvider
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
+import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
-class FeedFragmentViewModel(private val articleRepository: ArticleRepository, app: Application) : BaseContextViewModel(app) {
+class FeedFragmentViewModel(
+    private val articleRepository: ArticleRepository,
+    subscriptionRepository: SubscriptionRepository,
+    app: Application
+) :
+    BaseContextViewModel(app) {
 
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = mutableIsLoading
+
+    init {
+        compositeDisposable.addAll(subscriptionRepository.subscription.forEach {
+            updateArticles()
+        })
+    }
 
     fun getArticles(): LiveData<List<ArticleDatabaseView>> {
         return articleRepository.getArticles()
@@ -21,7 +33,7 @@ class FeedFragmentViewModel(private val articleRepository: ArticleRepository, ap
     fun updateArticles() {
         compositeDisposable.add(articleRepository.updateArticles()
             .doOnSubscribe {
-                mutableIsLoading.postValue( true)
+                mutableIsLoading.postValue(true)
             }
             .doOnComplete {
                 mutableIsLoading.postValue(false)
@@ -29,9 +41,13 @@ class FeedFragmentViewModel(private val articleRepository: ArticleRepository, ap
             .subscribe())
     }
 
-    class Factory(val articleRepository: ArticleRepository, val app : Application) : ViewModelProvider.Factory {
+    class Factory(
+        val articleRepository: ArticleRepository,
+        private val subscriptionRepository: SubscriptionRepository,
+        val app: Application
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedFragmentViewModel(articleRepository, app) as T
+            return FeedFragmentViewModel(articleRepository, subscriptionRepository, app) as T
         }
     }
 }

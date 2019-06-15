@@ -16,6 +16,9 @@ interface SubscriptionDao {
     @Query("SELECT * FROM subscription")
     fun getAllMaybe(): Maybe<List<SubscriptionEntity>>
 
+    @Query("SELECT * FROM subscription WHERE url = :url")
+    fun getByUrlMaybe(url: String) : Maybe<SubscriptionEntity>
+
     @Insert
     fun insertAll(vararg dataEntities: SubscriptionEntity)
 }

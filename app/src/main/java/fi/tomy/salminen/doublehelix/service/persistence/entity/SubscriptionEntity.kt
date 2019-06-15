@@ -26,5 +26,9 @@ data class SubscriptionEntity(
                 SubscriptionEntity("https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss", "NASA Image of the day")
             )
         }
+
+        fun fromUrl(url: String) : SubscriptionEntity {
+            return SubscriptionEntity(url, null)
+        }
     }
 }

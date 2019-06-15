@@ -7,6 +7,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
+import io.reactivex.Single
 import java.time.ZonedDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,15 +47,18 @@ data class ArticleEntity(
 
     @Singleton
     class Factory @Inject constructor(val dateFormatter: DateFormatter) {
-        fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): ArticleEntity {
-            return ArticleEntity(
-                rssItem.title,
-                rssItem.description,
-                rssItem.link,
-                dateFormatter.parse(rssItem.publishDate),
-                rssItem.enclosure?.url,
-                subscriptionEntity.id
-            )
+        fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): Single<ArticleEntity> {
+            return dateFormatter.parse(rssItem.publishDate)
+                .map {
+                    ArticleEntity(
+                        rssItem.title,
+                        rssItem.description,
+                        rssItem.link,
+                        it,
+                        rssItem.enclosure?.url,
+                        subscriptionEntity.id
+                    )
+                }
         }
     }
 }

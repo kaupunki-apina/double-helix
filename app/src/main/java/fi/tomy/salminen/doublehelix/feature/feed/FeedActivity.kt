@@ -3,6 +3,7 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
@@ -25,6 +26,14 @@ class FeedActivity : FullScreenActivity<FeedActivityComponent>() {
         setSupportActionBar(bottom_bar)
         setContentView(R.layout.activity_feed)
         binder.bind(this)
+
+        val uri = intent?.data
+        if (uri != null) {
+            viewModel.addSubscription(uri)
+                .doOnComplete { Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show() }
+                .doOnError { Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show() }
+                .subscribe()
+        }
     }
 
     override fun onStop() {

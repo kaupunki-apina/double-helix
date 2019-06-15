@@ -63,8 +63,6 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         viewModel.isLoading.observe(this, Observer {
             swipe_refresh.isRefreshing = it
         })
-
-        viewModel.updateArticles()
     }
 
     private fun onMenuItemSelected(menuItem: MenuItem): Boolean {
