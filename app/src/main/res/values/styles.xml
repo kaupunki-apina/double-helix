@@ -36,6 +36,10 @@
     <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <!-- Override background drawable once supported -->
     </style>
+    <style name="AppTheme.ExtendedFloatingActionbutton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <!-- Override background drawable once supported -->
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="AppTheme"/>
     <style name="AppTheme.PopupOverlay" parent="AppTheme"/>
 

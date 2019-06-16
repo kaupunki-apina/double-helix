@@ -11,15 +11,9 @@ class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_preview)
-
-        val uri = intent?.data
-        if (uri != null) {
-            /*
-            viewModel.addSubscription(uri)
-                .doOnComplete { Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show() }
-                .doOnError { Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show() }
-                .subscribe()
-            */
+        val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_preview_fragment)
+        contentFragment?.arguments = Bundle().apply {
+            putParcelable(FeedPreviewFragment.EXTRA_FEED_URI, intent?.data)
         }
     }
 
