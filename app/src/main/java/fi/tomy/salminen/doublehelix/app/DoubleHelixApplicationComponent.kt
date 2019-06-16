@@ -7,6 +7,8 @@ import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityComponent
 import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityModule
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityComponent
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityModule
+import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityComponent
+import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationComponent
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
@@ -45,6 +47,11 @@ interface DoubleHelixApplicationComponent : BaseApplicationComponent {
         articleActivityModule: ArticleActivityModule,
         baseActivityModule: BaseActivityModule
     ) : ArticleActivityComponent
+
+    fun plus(
+        feedPreviewActivityModule: FeedPreviewActivityModule,
+        baseActivityModule: BaseActivityModule
+    ) : FeedPreviewActivityComponent
 
     fun plus(seedModule: SeedModule): SeedComponent
 }

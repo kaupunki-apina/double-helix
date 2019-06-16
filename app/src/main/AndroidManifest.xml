@@ -13,41 +13,49 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".feature.feedpreview.FeedPreviewActivity">
+            <!-- RSS Link intent filters -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:mimeType="text/xml"/>
+                <data android:mimeType="application/rss+xml"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="*"/>
+                <data android:pathPattern=".*rss"/>
+                <data android:pathPattern=".*rss.*"/>
+                <data android:pathPattern=".*RSS.*"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="rss"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".feature.feed.FeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-            <!-- RSS Link intent filters -->
-            <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:mimeType="text/xml"/>
-                <data android:mimeType="application/rss+xml" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http"/>
-                <data android:scheme="https"/>
-                <data android:host="*"/>
-                <data android:pathPattern=".*rss" />
-                <data android:pathPattern=".*rss.*" />
-                <data android:pathPattern=".*RSS.*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="rss" />
-            </intent-filter>
         </activity>
-        <activity android:name=".feature.article.ArticleActivity" />
+        <activity android:name=".feature.article.ArticleActivity"/>
     </application>
 </manifest>
