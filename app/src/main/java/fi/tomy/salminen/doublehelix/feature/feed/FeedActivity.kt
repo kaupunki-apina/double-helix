@@ -2,12 +2,13 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 
 import android.os.Bundle
+import android.view.Menu
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
-import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
 
@@ -23,6 +24,12 @@ class FeedActivity : FullScreenActivity<FeedActivityComponent>() {
         setSupportActionBar(bottom_bar)
         setContentView(R.layout.activity_feed)
         binder.bind(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_feed, menu)
+        return true
     }
 
     override fun onStop() {

@@ -30,21 +30,5 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:hideOnScroll="true"
-            app:fabCradleMargin="@dimen/margin_s"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            style="@style/AppTheme.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_filter_list_black_24dp"
-            app:layout_anchor="@id/bottom_bar"/>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

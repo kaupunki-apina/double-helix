@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class DateFormatter @Inject constructor(@ForApplication context: Context) {
+class DateFormatter @Inject constructor() {
     // RFC 2822 date pattern
     private val patternA = "EEE, dd MMM yyyy HH:mm[:ss] z"
     // Almost RFC 2822 date pattern, but with timezone offset.
