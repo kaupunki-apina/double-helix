@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.feedpreview
+package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.app.Application
 import android.net.Uri
@@ -9,21 +9,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
-import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
-
-class FeedPreviewFragmentViewModel(
+class FeedPreviewActivityViewModel(
     private val articleRepository: ArticleRepository,
     private val subscriptionRepository: SubscriptionRepository,
     val feedUri: Uri?,
     app: Application
 ) : BaseContextViewModel(app) {
-
-    private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = mutableIsLoading
-
     private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.ic_favorite_border_black_24dp)
     val fabIcon: LiveData<Int> get() = mutableFabIcon
 
@@ -42,7 +36,7 @@ class FeedPreviewFragmentViewModel(
         private val app: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedPreviewFragmentViewModel(articleRepository, subscriptionRepository,feedUri, app) as T
+            return FeedPreviewActivityViewModel(articleRepository, subscriptionRepository,feedUri, app) as T
         }
     }
 }

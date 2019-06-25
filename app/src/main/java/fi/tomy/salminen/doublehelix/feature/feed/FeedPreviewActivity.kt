@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.feedpreview
+package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
 import fi.tomy.salminen.doublehelix.R
@@ -11,15 +11,15 @@ class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_preview)
-        val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_preview_fragment)
+        val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)
         contentFragment?.arguments = Bundle().apply {
-            putParcelable(FeedPreviewFragment.EXTRA_FEED_URI, intent?.data)
+            putParcelable(FeedFragment.EXTRA_FEED_URI, intent?.data)
         }
     }
 
     override fun createComponent(): FeedPreviewActivityComponent {
         return (application as DoubleHelixApplication).component.plus(
-            FeedPreviewActivityModule(),
+            FeedPreviewActivityModule(intent?.data),
             BaseActivityModule(this)
         )
     }

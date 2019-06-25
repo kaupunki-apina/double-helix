@@ -62,6 +62,7 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
     }
 
     companion object {
+        val EXTRA_FEED_URI = "feed_uri"
         fun newInstance(): FeedFragment {
             return FeedFragment()
         }

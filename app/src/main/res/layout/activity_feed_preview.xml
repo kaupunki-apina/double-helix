@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature.feed.FeedActivity">
+    <data>
+        <variable
+            name="viewModel"
+            type="fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityViewModel"/>
+    </data>
 
-    <fragment
-        android:id="@+id/feed_preview_fragment"
-        android:name="fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewFragment"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:showIn="@layout/activity_feed_preview"
-        tools:layout="@layout/fragment_feed_preview"/>
+        android:layout_height="match_parent">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <fragment
+            android:id="@+id/feed_fragment"
+            android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:showIn="@layout/activity_feed"
+            tools:layout="@layout/fragment_feed"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            style="@style/AppTheme.ExtendedFloatingActionbutton"
+            android:id="@+id/extended_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_favourite"
+            android:layout_margin="@dimen/margin_m"
+            android:onClick="@{viewModel.onFabClick}"
+            app:icon="@drawable/ic_favorite_black_24dp"
+            app:layout_anchor="@id/swipe_refresh"
+            app:layout_anchorGravity="bottom|center_horizontal"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

@@ -7,8 +7,8 @@ import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityComponent
 import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityModule
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityComponent
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityModule
-import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityComponent
-import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityModule
+import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityComponent
+import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationComponent
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
