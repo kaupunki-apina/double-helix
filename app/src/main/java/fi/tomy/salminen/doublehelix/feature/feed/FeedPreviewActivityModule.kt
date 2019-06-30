@@ -6,15 +6,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
-import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
+import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
 
-@Module(includes = [BaseActivityModule::class])
+@Module
 class FeedPreviewActivityModule(val feedUri: Uri?) {
 
     @Provides
+    @FragmentScope
     fun provideFeedFragmentViewModelFactory(
         articleRepository: ArticleRepository,
         subscriptionRepository: SubscriptionRepository,
@@ -24,6 +25,7 @@ class FeedPreviewActivityModule(val feedUri: Uri?) {
     }
 
     @Provides
+    @FragmentScope
     fun provideFeedViewModel(
         fragment: Fragment,
         factory: FeedPreviewActivityViewModel.Factory

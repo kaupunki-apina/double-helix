@@ -11,13 +11,11 @@ import dagger.Provides
 class BaseFragmentModule(val fragment: Fragment) {
 
     @Provides
-    @FragmentScope
     fun provideFragment(): Fragment {
         return fragment
     }
 
     @Provides
-    @FragmentScope
     @ForFragment
     internal fun provideFragmentContext(): Context {
         return fragment.requireContext()

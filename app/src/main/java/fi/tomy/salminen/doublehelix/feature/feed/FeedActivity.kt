@@ -4,10 +4,10 @@ package fi.tomy.salminen.doublehelix.feature.feed
 import android.os.Bundle
 import android.view.Menu
 import fi.tomy.salminen.doublehelix.R
-import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
+import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
@@ -38,9 +38,10 @@ class FeedActivity : FullScreenActivity<FeedActivityComponent>() {
     }
 
     override fun createComponent(): FeedActivityComponent {
-        return (application as DoubleHelixApplication).component.plus(
-            FeedActivityModule(),
-            BaseActivityModule(this)
+        return DaggerFeedActivityComponent.factory().create(
+            helixApplication.component,
+            DaggerBaseActivityComponent.factory().create(BaseActivityModule(this)),
+            FeedActivityModule()
         )
     }
 

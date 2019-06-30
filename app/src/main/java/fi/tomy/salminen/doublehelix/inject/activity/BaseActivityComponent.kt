@@ -1,17 +1,20 @@
 package fi.tomy.salminen.doublehelix.inject.activity
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import dagger.Component
-import fi.tomy.salminen.doublehelix.app.DoubleHelixApplicationComponent
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 
 
-@ActivityScope
-@Component(dependencies = [DoubleHelixApplicationComponent::class], modules = [BaseActivityModule::class])
+@Component(modules = [BaseActivityModule::class])
 interface BaseActivityComponent {
 
-    val activity: AppCompatActivity
+    fun activity(): BaseActivity<*>
 
-    @get:ForActivity
-    val activityContext: Context
+    @ForActivity
+    fun activityContext(): Context
+
+    @Component.Factory
+    interface Factory {
+        fun create(baseActivityModule: BaseActivityModule) : BaseActivityComponent
+    }
 }

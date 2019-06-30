@@ -3,17 +3,13 @@ package fi.tomy.salminen.doublehelix.app
 import android.app.Application
 import android.content.Context
 import dagger.Component
-import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityComponent
-import fi.tomy.salminen.doublehelix.feature.article.ArticleActivityModule
-import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityComponent
-import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityModule
 import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityComponent
 import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityModule
-import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationComponent
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import fi.tomy.salminen.doublehelix.service.http.HttpServiceModule
 import fi.tomy.salminen.doublehelix.service.persistence.PersistenceModule
+import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedComponent
 import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedModule
 import fi.tomy.salminen.doublehelix.service.rss.RssServiceModule
@@ -39,18 +35,7 @@ interface DoubleHelixApplicationComponent : BaseApplicationComponent {
     fun inject(application: DoubleHelixApplication)
 
     fun plus(
-        feedActivityModule: FeedActivityModule,
-        baseActivityModule: BaseActivityModule
-    ): FeedActivityComponent
-
-    fun plus(
-        articleActivityModule: ArticleActivityModule,
-        baseActivityModule: BaseActivityModule
-    ) : ArticleActivityComponent
-
-    fun plus(
-        feedPreviewActivityModule: FeedPreviewActivityModule,
-        baseActivityModule: BaseActivityModule
+        feedPreviewActivityModule: FeedPreviewActivityModule
     ) : FeedPreviewActivityComponent
 
     fun plus(seedModule: SeedModule): SeedComponent

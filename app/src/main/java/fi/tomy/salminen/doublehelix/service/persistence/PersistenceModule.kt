@@ -6,13 +6,12 @@ import dagger.Provides
 import javax.inject.Singleton
 import androidx.room.Room
 import fi.tomy.salminen.doublehelix.inject.application.ForApplication
+import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.seed.DatabaseSeed
 
 
 @Module
 class PersistenceModule {
-
-    private val DB_NAME = "double_helix_database"
 
     @Provides
     @Singleton
@@ -26,7 +25,7 @@ class PersistenceModule {
         return Room.databaseBuilder(
             applicationContext,
             DoubleHelixDatabase::class.java,
-            DB_NAME
+            DoubleHelixDatabase.DB_NAME
         )
             .addCallback(seed)
             .build()

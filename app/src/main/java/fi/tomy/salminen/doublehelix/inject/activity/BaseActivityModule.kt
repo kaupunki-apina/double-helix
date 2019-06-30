@@ -4,21 +4,20 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 
 
 @Module
-class BaseActivityModule(private val activity: AppCompatActivity) {
+class BaseActivityModule(private val activity: BaseActivity<*>) {
 
     @Provides
-    @ActivityScope
     @ForActivity
     internal fun provideActivityContext(): Context {
         return activity
     }
 
     @Provides
-    @ActivityScope
-    internal fun provideActivity(): AppCompatActivity {
+    internal fun provideActivity(): BaseActivity<*> {
         return activity
     }
 }

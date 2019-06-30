@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.Module
 import dagger.Provides
 import fi.tomy.salminen.doublehelix.common.DateFormatter
-import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import fi.tomy.salminen.doublehelix.inject.fragment.ForFragment
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
-@Module(includes = [BaseFragmentModule::class])
+
+@Module
 class FeedFragmentModule {
     @Provides
     fun provideFeedFragmentViewModelFactory(

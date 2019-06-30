@@ -18,10 +18,13 @@ class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
     }
 
     override fun createComponent(): FeedPreviewActivityComponent {
+        TODO()
+        /*
         return (application as DoubleHelixApplication).component.plus(
             FeedPreviewActivityModule(intent?.data),
             BaseActivityModule(this)
         )
+        */
     }
 
     override fun inject() {

@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
-import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 
 
-@Module(includes = [BaseActivityModule::class])
+@Module
 class FeedActivityModule {
 
     @Provides
@@ -19,7 +19,7 @@ class FeedActivityModule {
 
     @Provides
     fun provideFeedViewModel(
-        activity: AppCompatActivity,
+        activity: BaseActivity<*>,
         factory: FeedActivityViewModel.Factory
     ): FeedActivityViewModel {
         return ViewModelProviders.of(activity, factory)[FeedActivityViewModel::class.java]

@@ -1,18 +1,13 @@
 package fi.tomy.salminen.doublehelix.common
 
-
-import android.content.Context
-import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import io.reactivex.Single
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
 class DateFormatter @Inject constructor() {
     // RFC 2822 date pattern
     private val patternA = "EEE, dd MMM yyyy HH:mm[:ss] z"

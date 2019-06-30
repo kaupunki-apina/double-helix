@@ -23,4 +23,8 @@ import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntit
 abstract class DoubleHelixDatabase : RoomDatabase() {
     abstract fun subscriptionDao(): SubscriptionDao
     abstract fun articleDao(): ArticleDao
+
+    companion object {
+        const val DB_NAME = "double_helix_database"
+    }
 }

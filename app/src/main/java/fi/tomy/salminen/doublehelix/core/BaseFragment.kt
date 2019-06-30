@@ -16,4 +16,6 @@ abstract class BaseFragment<T> : Fragment(), Injector<T> {
         super.onActivityCreated(savedInstanceState)
         inject()
     }
+
+    val helixActivity get() = activity as BaseActivity<*>
 }

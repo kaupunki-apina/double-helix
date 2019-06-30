@@ -5,7 +5,6 @@ import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

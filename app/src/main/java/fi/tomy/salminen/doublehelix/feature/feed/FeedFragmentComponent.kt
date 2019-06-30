@@ -1,13 +1,20 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
 
-import dagger.Subcomponent
+import dagger.Component
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplicationComponent
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentComponent
 import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
 
 @FragmentScope
-@Subcomponent(modules = [FeedFragmentModule::class])
-interface FeedFragmentComponent : BaseFragmentComponent {
+@Component(
+    dependencies = [
+        DoubleHelixApplicationComponent::class,
+        BaseFragmentComponent::class
+    ],
+    modules = [FeedFragmentModule::class]
+)
+interface FeedFragmentComponent {
 
     fun inject(feedFragment: FeedFragment)
 }
