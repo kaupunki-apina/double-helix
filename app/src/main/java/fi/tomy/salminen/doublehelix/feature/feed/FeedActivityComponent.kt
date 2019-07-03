@@ -14,7 +14,8 @@ import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityComponent
     ],
     modules = [
         FeedActivityModule::class
-    ])
+    ]
+)
 interface FeedActivityComponent {
     fun inject(feedActivity: FeedActivity)
 

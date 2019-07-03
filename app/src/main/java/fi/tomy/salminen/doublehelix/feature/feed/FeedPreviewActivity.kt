@@ -2,9 +2,9 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
 import fi.tomy.salminen.doublehelix.R
-import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
+import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
 
 class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
 
@@ -18,13 +18,11 @@ class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
     }
 
     override fun createComponent(): FeedPreviewActivityComponent {
-        TODO()
-        /*
-        return (application as DoubleHelixApplication).component.plus(
-            FeedPreviewActivityModule(intent?.data),
-            BaseActivityModule(this)
+        return DaggerFeedPreviewActivityComponent.factory().create(
+            helixApplication.component,
+            DaggerBaseActivityComponent.factory().create(BaseActivityModule(this)),
+            FeedPreviewActivityModule(intent?.data)
         )
-        */
     }
 
     override fun inject() {

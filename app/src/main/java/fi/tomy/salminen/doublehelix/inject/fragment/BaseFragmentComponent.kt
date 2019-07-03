@@ -1,14 +1,20 @@
 package fi.tomy.salminen.doublehelix.inject.fragment
 
 
-import androidx.fragment.app.Fragment
+import android.content.Context
 import dagger.Component
+import fi.tomy.salminen.doublehelix.core.BaseFragment
 
 
 @Component(modules = [BaseFragmentModule::class])
 interface BaseFragmentComponent {
+    @ForFragment
+    fun fragmentContext(): Context
 
-    @get:FragmentScope
-    val fragment: Fragment
+    fun fragment(): BaseFragment<*>
 
+    @Component.Factory
+    interface Factory {
+        fun create(baseFragmentModule: BaseFragmentModule): BaseFragmentComponent
+    }
 }

@@ -36,7 +36,7 @@ class FeedPreviewActivityViewModel(
         private val app: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedPreviewActivityViewModel(articleRepository, subscriptionRepository,feedUri, app) as T
+            return FeedPreviewActivityViewModel(articleRepository, subscriptionRepository, feedUri, app) as T
         }
     }
 }

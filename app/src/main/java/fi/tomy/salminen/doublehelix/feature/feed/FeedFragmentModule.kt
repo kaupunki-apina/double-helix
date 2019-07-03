@@ -2,13 +2,13 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.app.Application
 import android.content.Context
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Module
 import dagger.Provides
 import fi.tomy.salminen.doublehelix.common.DateFormatter
+import fi.tomy.salminen.doublehelix.core.BaseFragment
 import fi.tomy.salminen.doublehelix.inject.fragment.ForFragment
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
@@ -16,6 +16,7 @@ import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionR
 
 @Module
 class FeedFragmentModule {
+
     @Provides
     fun provideFeedFragmentViewModelFactory(
         articleRepository: ArticleRepository,
@@ -31,7 +32,7 @@ class FeedFragmentModule {
     }
 
     @Provides
-    fun provideFeedViewModel(fragment: Fragment, factory: FeedFragmentViewModel.Factory): FeedFragmentViewModel {
+    fun provideFeedViewModel(fragment: BaseFragment<*>, factory: FeedFragmentViewModel.Factory): FeedFragmentViewModel {
         return ViewModelProviders.of(fragment, factory)[FeedFragmentViewModel::class.java]
     }
 

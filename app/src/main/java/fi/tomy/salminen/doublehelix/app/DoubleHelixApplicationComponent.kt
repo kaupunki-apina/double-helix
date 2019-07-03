@@ -10,6 +10,7 @@ import fi.tomy.salminen.doublehelix.inject.application.ForApplication
 import fi.tomy.salminen.doublehelix.service.http.HttpServiceModule
 import fi.tomy.salminen.doublehelix.service.persistence.PersistenceModule
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
+import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedComponent
 import fi.tomy.salminen.doublehelix.service.persistence.seed.SeedModule
 import fi.tomy.salminen.doublehelix.service.rss.RssServiceModule
@@ -34,9 +35,9 @@ interface DoubleHelixApplicationComponent : BaseApplicationComponent {
 
     fun inject(application: DoubleHelixApplication)
 
-    fun plus(
-        feedPreviewActivityModule: FeedPreviewActivityModule
-    ) : FeedPreviewActivityComponent
+    fun provideSubscriptionRepository(): SubscriptionRepository
+
+    fun provideArticleRepository(): ArticleRepository
 
     fun plus(seedModule: SeedModule): SeedComponent
 }

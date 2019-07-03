@@ -7,6 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.BaseFragment
+import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
+import fi.tomy.salminen.doublehelix.inject.fragment.DaggerBaseFragmentComponent
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
@@ -31,13 +33,11 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
     }
 
     override fun createComponent(): FeedFragmentComponent {
-        TODO()
-        /*
-        return (activity.application as ).component.plus(
-            FeedFragmentModule(),
-            BaseFragmentModule(this)
+        return DaggerFeedFragmentComponent.factory().create(
+            helixActivity.helixApplication.component,
+            DaggerBaseFragmentComponent.factory().create(BaseFragmentModule(this)),
+            FeedFragmentModule()
         )
-        */
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -2,16 +2,16 @@ package fi.tomy.salminen.doublehelix.inject.fragment
 
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import dagger.Module
 import dagger.Provides
+import fi.tomy.salminen.doublehelix.core.BaseFragment
 
 
 @Module
-class BaseFragmentModule(val fragment: Fragment) {
+class BaseFragmentModule(private val fragment: BaseFragment<*>) {
 
     @Provides
-    fun provideFragment(): Fragment {
+    fun provideFragment(): BaseFragment<*> {
         return fragment
     }
 

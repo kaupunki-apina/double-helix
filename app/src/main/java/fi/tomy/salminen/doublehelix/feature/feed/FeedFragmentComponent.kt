@@ -17,4 +17,13 @@ import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
 interface FeedFragmentComponent {
 
     fun inject(feedFragment: FeedFragment)
+
+    @Component.Factory
+    interface Factory {
+        fun create(
+            doubleHelixApplicationComponent: DoubleHelixApplicationComponent,
+            baseFragmentComponent: BaseFragmentComponent,
+            feedFragmentModule: FeedFragmentModule
+        ) : FeedFragmentComponent
+    }
 }
