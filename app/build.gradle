@@ -34,7 +34,7 @@ android {
 ext {
     dependencyVersions = [
             androidSupport  : '1.0.0',
-            androidMaterial : '1.1.0-alpha04',
+            androidMaterial : '1.1.0-alpha08',
             chromeTabs      : '1.0.0',
             constraintLayout: '1.1.2',
             dagger2         : '2.22',

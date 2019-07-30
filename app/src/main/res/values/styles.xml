@@ -33,6 +33,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.ToolbarActivity" parent="AppTheme">
+        <!-- System components -->
+        <!-- Let toolbar color show under the status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <!-- Override background drawable once supported -->
     </style>

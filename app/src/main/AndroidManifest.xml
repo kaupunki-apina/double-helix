@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".feature.feed.FeedPreviewActivity">
+        <activity
+            android:name=".feature.feed.FeedPreviewActivity"
+            android:theme="@style/AppTheme.ToolbarActivity">
             <!-- RSS Link intent filters -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -56,6 +58,5 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".feature.article.ArticleActivity"/>
     </application>
 </manifest>

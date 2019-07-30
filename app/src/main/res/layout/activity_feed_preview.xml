@@ -14,13 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:background="@color/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <fragment
+            android:background="@color/secondaryColor"
+            android:layout_marginTop="20dp"
             android:id="@+id/feed_fragment"
             android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:showIn="@layout/activity_feed"
-            tools:layout="@layout/fragment_feed"/>
+            tools:layout="@layout/fragment_feed"
+            app:layout_behavior="fi.tomy.salminen.doublehelix.components.FullScreenScrollBehaviour"
+            app:contentAnchor="@id/appBar"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             style="@style/AppTheme.ExtendedFloatingActionbutton"
@@ -29,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/action_favourite"
             android:layout_margin="@dimen/margin_m"
-            android:onClick="@{viewModel.onFabClick}"
+            android:onClick="@{viewModel::onFabClick}"
             app:icon="@drawable/ic_favorite_black_24dp"
             app:layout_anchor="@id/swipe_refresh"
             app:layout_anchorGravity="bottom|center_horizontal"/>

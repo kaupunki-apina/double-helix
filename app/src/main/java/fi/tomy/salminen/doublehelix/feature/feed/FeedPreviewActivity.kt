@@ -5,6 +5,8 @@ import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
+import kotlinx.android.synthetic.main.activity_feed_preview.*
+
 
 class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
 
@@ -12,6 +14,12 @@ class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_preview)
         val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         contentFragment?.arguments = Bundle().apply {
             putParcelable(FeedFragment.EXTRA_FEED_URI, intent?.data)
         }
