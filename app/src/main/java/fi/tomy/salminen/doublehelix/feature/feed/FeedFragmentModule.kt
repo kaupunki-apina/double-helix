@@ -2,6 +2,8 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.app.Application
 import android.content.Context
+import android.net.Uri
+import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +23,11 @@ class FeedFragmentModule {
     fun provideFeedFragmentViewModelFactory(
         articleRepository: ArticleRepository,
         subscriptionRepository: SubscriptionRepository,
-        app: Application
+        app: Application,
+        vmFactory: ArticleListItemViewModel.Factory,
+        arguments: Bundle?
     ): FeedFragmentViewModel.Factory {
-        return FeedFragmentViewModel.Factory(articleRepository, subscriptionRepository, app)
+        return FeedFragmentViewModel.Factory(articleRepository, subscriptionRepository, app, vmFactory, arguments?.getParcelable(FeedFragment.EXTRA_FEED_URI))
     }
 
     @Provides
@@ -34,11 +38,6 @@ class FeedFragmentModule {
     @Provides
     fun provideFeedViewModel(fragment: BaseFragment<*>, factory: FeedFragmentViewModel.Factory): FeedFragmentViewModel {
         return ViewModelProviders.of(fragment, factory)[FeedFragmentViewModel::class.java]
-    }
-
-    @Provides
-    fun provideArticleListAdapter(vmFactory: ArticleListItemViewModel.Factory): ArticleListAdapter {
-        return ArticleListAdapter(vmFactory)
     }
 
 

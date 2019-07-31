@@ -61,6 +61,7 @@ dependencies {
 
     // View model
     implementation "androidx.lifecycle:lifecycle-extensions:$dependencyVersions.extensions"
+    implementation "android.arch.lifecycle:reactivestreams:$dependencyVersions.extensions"
 
     // Dagger 2
     implementation "com.google.dagger:dagger:$dependencyVersions.dagger2"

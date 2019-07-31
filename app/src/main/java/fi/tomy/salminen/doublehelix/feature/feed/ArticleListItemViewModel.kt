@@ -8,20 +8,19 @@ import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
+import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
+import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 
 
 class ArticleListItemViewModel(
-    val dateFormatter: DateFormatter,
-    val model: ArticleDatabaseView
-) : BaseViewModel() {
+    val title: String?,
+    val description: String?,
+    val publishDate: String,
+    val subscription: String?,
+    val imageUrl: String?,
+    val url: String?
+    ) : BaseViewModel() {
 
-    val id: Int get() = model.id
-    val title: String? get() = model.title
-    val description: String? get() = model.description
-    val publishDate: String get() = if (model.publishDate != null) dateFormatter.format(model.publishDate) else ""
-    val subscription: String? get() = model.subscriptionDescription
-    val imageUrl: String? get() = model.imageUrl
-    val url: String? get() = model.link
 
     fun onClick(view: View) {
         CustomTabsIntent.Builder()
@@ -32,7 +31,25 @@ class ArticleListItemViewModel(
 
     class Factory(val dateFormatter: DateFormatter) {
         fun create(model: ArticleDatabaseView): ArticleListItemViewModel {
-            return ArticleListItemViewModel(dateFormatter, model)
+            return ArticleListItemViewModel(
+                model.title,
+                model.description,
+                if (model.publishDate != null) dateFormatter.format(model.publishDate) else "",
+                model.subscriptionDescription,
+                model.imageUrl,
+                model.link
+            )
+        }
+
+        fun create(subscriptionEntity: SubscriptionEntity, articleEntity: ArticleEntity) : ArticleListItemViewModel {
+            return ArticleListItemViewModel(
+                articleEntity.title,
+                articleEntity.description,
+                articleEntity.publishDate?.let { dateFormatter.format(it) } ?: "",
+                subscriptionEntity.description,
+                articleEntity.imageUrl,
+                articleEntity.link
+            )
         }
     }
 }

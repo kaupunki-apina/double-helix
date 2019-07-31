@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import fi.tomy.salminen.doublehelix.service.rss.RssModel
 
 
 @Entity(tableName = "subscription")
@@ -27,8 +28,8 @@ data class SubscriptionEntity(
             )
         }
 
-        fun fromUrl(url: String) : SubscriptionEntity {
-            return SubscriptionEntity(url, null)
+        fun from(rssModel: RssModel) : SubscriptionEntity {
+            return SubscriptionEntity("", rssModel.channel?.title)
         }
     }
 }

@@ -6,13 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.databinding.ListItemFeedBinding
-import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
+import javax.inject.Inject
 
 
-class ArticleListAdapter(val vmFactory: ArticleListItemViewModel.Factory) :
+class ArticleListAdapter @Inject constructor() :
     RecyclerView.Adapter<ArticleListAdapter.ArticleListItemBindingHolder>() {
 
-    private var articles = emptyList<ArticleDatabaseView>()
+    private var articles = emptyList<ArticleListItemViewModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, index: Int): ArticleListItemBindingHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,10 +31,10 @@ class ArticleListAdapter(val vmFactory: ArticleListItemViewModel.Factory) :
     }
 
     override fun onBindViewHolder(viewHolder: ArticleListItemBindingHolder, index: Int) {
-        viewHolder.bind(vmFactory.create(articles[index]))
+        viewHolder.bind(articles[index])
     }
 
-    fun setArticles(articles: List<ArticleDatabaseView>) {
+    fun setArticles(articles: List<ArticleListItemViewModel>) {
         this.articles = articles
         notifyDataSetChanged()
     }

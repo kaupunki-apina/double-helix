@@ -1,10 +1,12 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
+import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import fi.tomy.salminen.doublehelix.service.rss.RssService
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +26,33 @@ class ArticleRepository @Inject constructor(
 
     fun getArticles(): LiveData<List<ArticleDatabaseView>> {
         return articleDao.getAll()
+    }
+
+    fun getArticlesByUrl(uri: Uri): Flowable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
+        return rssService.getRssFeed(uri.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                val subEntity = SubscriptionEntity.from(it)
+                Pair(subEntity, it)
+            }
+            .flatMap {
+                Flowable.fromIterable(it.second.channel?.items)
+                    .flatMapMaybe { rssItem ->
+                        Maybe.fromSingle(articleFactory.from(rssItem, it.first))
+                            // If article cannot be parsed, ignore it
+                            .onErrorResumeNext { _: Throwable ->
+                                Log.d(
+                                    TAG,
+                                    "Parsing article failed likely due to unexpected date format - Discarding item"
+                                )
+                                Maybe.empty<ArticleEntity>()
+                            }
+                    }
+                    .map { article -> Pair(it.first, article) }
+                    .toList()
+                    .toFlowable()
+            }
     }
 
     fun getArticleById(articleId: Int): Maybe<ArticleDatabaseView> {

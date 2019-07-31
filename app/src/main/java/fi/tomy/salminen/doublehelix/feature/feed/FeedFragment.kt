@@ -36,7 +36,8 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         return DaggerFeedFragmentComponent.factory().create(
             helixActivity.helixApplication.component,
             DaggerBaseFragmentComponent.factory().create(BaseFragmentModule(this)),
-            FeedFragmentModule()
+            FeedFragmentModule(),
+            arguments
         )
     }
 
