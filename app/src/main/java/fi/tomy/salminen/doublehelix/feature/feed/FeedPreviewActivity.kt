@@ -1,18 +1,26 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
+import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
 import kotlinx.android.synthetic.main.activity_feed_preview.*
+import javax.inject.Inject
 
 
 class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
+    @Inject
+    lateinit var viewModel: FeedPreviewActivityViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feed_preview)
+        val binding : ActivityFeedPreviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_feed_preview)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)
         setSupportActionBar(toolbar)
 

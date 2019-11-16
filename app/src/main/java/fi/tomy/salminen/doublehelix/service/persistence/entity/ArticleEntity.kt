@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
@@ -18,7 +19,8 @@ import javax.inject.Singleton
         ForeignKey(
             entity = SubscriptionEntity::class,
             parentColumns = ["id"],
-            childColumns = ["subscriptionId"]
+            childColumns = ["subscriptionId"],
+            onDelete = CASCADE
         )
     ]
 )

@@ -31,5 +31,9 @@ data class SubscriptionEntity(
         fun from(rssModel: RssModel) : SubscriptionEntity {
             return SubscriptionEntity("", rssModel.channel?.title)
         }
+
+        fun from(url: String) : SubscriptionEntity {
+            return SubscriptionEntity(url, "")
+        }
     }
 }
