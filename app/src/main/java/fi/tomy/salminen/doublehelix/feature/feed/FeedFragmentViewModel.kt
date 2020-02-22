@@ -2,12 +2,13 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.*
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
+import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
 
 class FeedFragmentViewModel(
@@ -17,14 +18,22 @@ class FeedFragmentViewModel(
     private val vmFactory: ArticleListItemViewModel.Factory,
     private val feedUri: Uri?
 ) : BaseContextViewModel(app) {
-
+    private val isLoadingDebounce: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = mutableIsLoading
 
     init {
-        compositeDisposable.add(subscriptionRepository.subscription.forEach {
-            updateArticles()
-        })
+        compositeDisposable.addAll(
+            subscriptionRepository.subscription
+                .forEach {
+                    updateArticles()
+                },
+            isLoadingDebounce
+                .debounce(200, TimeUnit.MILLISECONDS)
+                .forEach {
+                    mutableIsLoading.postValue(it)
+                }
+        )
     }
 
     fun getArticles(): LiveData<List<ArticleListItemViewModel>> {
@@ -42,10 +51,10 @@ class FeedFragmentViewModel(
     fun updateArticles() {
         compositeDisposable.add(articleRepository.updateArticles()
             .doOnSubscribe {
-                mutableIsLoading.postValue(true)
+                isLoadingDebounce.onNext(true)
             }
             .doOnComplete {
-                mutableIsLoading.postValue(false)
+                isLoadingDebounce.onNext(false)
             }
             .subscribe())
     }

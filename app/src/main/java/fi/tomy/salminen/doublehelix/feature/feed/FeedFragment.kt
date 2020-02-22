@@ -3,10 +3,12 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.core.BaseFragment
+import fi.tomy.salminen.doublehelix.databinding.FragmentFeedBinding
 import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import fi.tomy.salminen.doublehelix.inject.fragment.DaggerBaseFragmentComponent
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -24,12 +26,16 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
     @Inject
     lateinit var layoutManager: RecyclerView.LayoutManager
 
+    lateinit var binding : FragmentFeedBinding
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_feed, container, true)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_feed, container, true)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun createComponent(): FeedFragmentComponent {
@@ -43,6 +49,7 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        binding.viewModel = viewModel
         feed_view.adapter = adapter
         feed_view.layoutManager = layoutManager
         viewModel.getArticles().observe(this, Observer {
@@ -54,10 +61,6 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         swipe_refresh.setOnRefreshListener {
             viewModel.updateArticles()
         }
-
-        viewModel.isLoading.observe(this, Observer {
-            swipe_refresh.isRefreshing = it
-        })
     }
 
     override fun inject() {

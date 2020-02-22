@@ -22,8 +22,8 @@ class FeedActivity : BaseActivity<FeedActivityComponent>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(bottom_bar)
         setContentView(R.layout.activity_feed)
+        setSupportActionBar(bottom_bar)
         binder.bind(this)
     }
 
