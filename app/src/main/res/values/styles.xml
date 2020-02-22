@@ -30,6 +30,7 @@
         <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/primaryTextColor</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
