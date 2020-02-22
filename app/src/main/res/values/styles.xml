@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Base app colors -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -30,6 +30,9 @@
         <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseAppTheme">
     </style>
 
     <style name="AppTheme.ToolbarActivity" parent="AppTheme">
