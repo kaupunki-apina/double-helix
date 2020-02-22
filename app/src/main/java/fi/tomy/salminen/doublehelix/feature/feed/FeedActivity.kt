@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
 
-class FeedActivity : FullScreenActivity<FeedActivityComponent>() {
+class FeedActivity : BaseActivity<FeedActivityComponent>() {
     @Inject
     lateinit var viewModel: FeedActivityViewModel
 

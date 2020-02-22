@@ -26,7 +26,6 @@
         <!-- System components -->
         <item name="android:statusBarColor">@color/statusBar</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Support library components -->
         <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
         <item name="windowActionBar">false</item>

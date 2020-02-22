@@ -10,6 +10,6 @@
     <color name="secondaryTextColor">#99000000</color>
     <color name="tertiaryTextColor">#61000000</color>
     <color name="surface">#fafafa</color>
-    <color name="statusBar">#ebffffff</color>
+    <color name="statusBar">@color/primaryLightColor</color>
     <color name="menu_icon">@color/primaryTextColor</color>
 </resources>

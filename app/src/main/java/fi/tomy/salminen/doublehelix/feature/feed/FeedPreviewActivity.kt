@@ -3,6 +3,7 @@ package fi.tomy.salminen.doublehelix.feature.feed
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import fi.tomy.salminen.doublehelix.R
+import fi.tomy.salminen.doublehelix.core.BaseActivity
 import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
@@ -11,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_feed_preview.*
 import javax.inject.Inject
 
 
-class FeedPreviewActivity : FullScreenActivity<FeedPreviewActivityComponent>() {
+class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
     @Inject
     lateinit var viewModel: FeedPreviewActivityViewModel
 
