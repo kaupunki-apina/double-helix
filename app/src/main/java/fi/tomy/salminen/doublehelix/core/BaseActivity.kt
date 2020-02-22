@@ -7,6 +7,12 @@ import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.inject.Injector
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 abstract class BaseActivity<T> : AppCompatActivity(), Injector<T> {

@@ -7,10 +7,19 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 
 @BindingAdapter("animateIcon")
-fun bindIcon(fab: ExtendedFloatingActionButton, res: Int) {
-    val animR: AnimatedVectorDrawableCompat? = AnimatedVectorDrawableCompat.create(fab.context, res)
+fun bindIcon(efab: ExtendedFloatingActionButton, res: Int) {
+    val animR: AnimatedVectorDrawableCompat? = AnimatedVectorDrawableCompat.create(efab.context, res)
     animR?.let {
-        fab.icon = it
-        (fab.icon as Animatable?)?.start()
+        efab.icon = it
+        (efab.icon as Animatable?)?.start()
+    }
+}
+
+@BindingAdapter("hidden")
+fun bindHidden(efab: ExtendedFloatingActionButton, hidden: Boolean) {
+    if (hidden) {
+        efab.hide()
+    } else {
+        efab.show()
     }
 }

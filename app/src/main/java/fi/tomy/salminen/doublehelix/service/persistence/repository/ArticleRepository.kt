@@ -30,14 +30,14 @@ class ArticleRepository @Inject constructor(
 
     fun getArticlesByUrl(uri: Uri): Observable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
         return rssService.getRssFeed(uri.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnError {err ->
                 Log.e(
                     TAG,
-                    "Failed to fetch feed: ${err.message}"
+                    "Failed to fetch feed from $uri, Message:${err.message}"
                 )
             }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .map {
                 "Mapping"
                 val subEntity = SubscriptionEntity.from(it)
@@ -100,12 +100,7 @@ class ArticleRepository @Inject constructor(
                     .toList()
                     .toFlowable()
             }
-            .doOnNext {
-                if (it != null) {
-                    articleDao.update(it)
-                }
-            }
+            .doOnNext { it?.let {  articles -> articleDao.update(articles) } }
             .ignoreElements()
-
     }
 }

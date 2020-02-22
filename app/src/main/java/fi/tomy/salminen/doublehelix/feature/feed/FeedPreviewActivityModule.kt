@@ -18,11 +18,10 @@ class FeedPreviewActivityModule(val feedUri: Uri?) {
 
     @Provides
     fun provideFeedFragmentViewModelFactory(
-        articleRepository: ArticleRepository,
         subscriptionRepository: SubscriptionRepository,
         app: Application
     ): FeedPreviewActivityViewModel.Factory {
-        return FeedPreviewActivityViewModel.Factory(articleRepository, subscriptionRepository, feedUri, app)
+        return FeedPreviewActivityViewModel.Factory(subscriptionRepository, feedUri, app)
     }
 
     @Provides

@@ -1,10 +1,14 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import fi.tomy.salminen.doublehelix.R
+import fi.tomy.salminen.doublehelix.common.DoneOnEditorActionListener
 import fi.tomy.salminen.doublehelix.core.BaseActivity
-import fi.tomy.salminen.doublehelix.core.FullScreenActivity
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
 import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
@@ -29,6 +33,7 @@ class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        search_field.setOnEditorActionListener(DoneOnEditorActionListener())
         contentFragment?.arguments = Bundle().apply {
             putParcelable(FeedFragment.EXTRA_FEED_URI, intent?.data)
         }
@@ -40,6 +45,24 @@ class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
             DaggerBaseActivityComponent.factory().create(BaseActivityModule(this)),
             FeedPreviewActivityModule(intent?.data)
         )
+    }
+
+    /**
+     * Clears focus from search field when there is a touch event outside the view bounds
+     */
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            if (search_field.isFocused) {
+                val outRect = Rect()
+                search_field.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    search_field.clearFocus()
+                    val imm = getSystemService(InputMethodManager::class.java)
+                    imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
     }
 
     override fun inject() {

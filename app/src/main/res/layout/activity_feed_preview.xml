@@ -22,7 +22,20 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/search_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onFocusChange="@{viewModel::onFocusChange}"
+                    android:onTextChanged="@{viewModel::onTextChanged}"
+                    android:background="@null"
+                    android:imeOptions="actionDone"
+                    android:hint="Search"
+                    android:singleLine="true"
+                    android:selectAllOnFocus="true"/>
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <fragment
@@ -44,6 +57,7 @@
             android:text="@string/action_favourite"
             android:layout_margin="@dimen/margin_m"
             android:onClick="@{viewModel::onFabClick}"
+            app:hidden='@{viewModel.isFabHidden}'
             app:animateIcon="@{viewModel.fabIcon}"
             app:layout_anchor="@id/swipe_refresh"
             app:layout_anchorGravity="bottom|center_horizontal"/>
