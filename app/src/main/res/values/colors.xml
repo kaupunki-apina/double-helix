@@ -2,14 +2,15 @@
 <resources>
     <color name="primaryColor">#fafafa</color>
     <color name="primaryLightColor">#ffffff</color>
-    <color name="primaryDarkColor">#c7c7c7</color>
+    <color name="primaryDarkColor">#f5f5f5</color>
     <color name="secondaryColor">#ffab40</color>
     <color name="secondaryLightColor">#ffdd71</color>
     <color name="secondaryDarkColor">#c77c02</color>
     <color name="primaryTextColor">#de000000</color>
     <color name="secondaryTextColor">#99000000</color>
     <color name="tertiaryTextColor">#61000000</color>
-    <color name="surface">#fafafa</color>
-    <color name="statusBar">@color/primaryLightColor</color>
+    <color name="surface">@color/primaryDarkColor</color>
+    <color name="statusBar">@color/surface</color>
     <color name="menu_icon">@color/primaryTextColor</color>
+    <color name="toolBarColor">@color/primaryLightColor</color>
 </resources>

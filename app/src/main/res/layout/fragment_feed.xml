@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:showIn="@layout/activity_feed"
-        tools:context=".feature.feed.FeedFragment">
+        tools:context=".feature.feed.FeedFragment"
+        android:background="@color/surface">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"

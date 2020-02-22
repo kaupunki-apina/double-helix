@@ -16,10 +16,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBar"
-            android:background="@color/statusBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:background="@color/toolBarColor">
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -28,14 +27,13 @@
 
         <fragment
             android:background="@color/secondaryColor"
-            android:layout_marginTop="20dp"
             android:id="@+id/feed_fragment"
             android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:showIn="@layout/activity_feed"
             tools:layout="@layout/fragment_feed"
-            app:layout_behavior="fi.tomy.salminen.doublehelix.components.FullScreenScrollBehaviour"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:contentAnchor="@id/appBar"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
