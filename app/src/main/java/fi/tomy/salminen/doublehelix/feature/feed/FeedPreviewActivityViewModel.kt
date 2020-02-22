@@ -26,7 +26,7 @@ class FeedPreviewActivityViewModel(
 ) : BaseContextViewModel(app) {
     private val TAG = "FeedPreviewActivityViewModel"
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
-    private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.ic_favorite_border_black_24dp)
+    private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.avd_unfavourite)
     val fabIcon: LiveData<Int> get() = mutableFabIcon
     private var onClickDisposable: Disposable? = null
 
@@ -43,8 +43,8 @@ class FeedPreviewActivityViewModel(
             compositeDisposable.add(isSaved
                 .observeOn(AndroidSchedulers.mainThread())
                 .forEach {
-                    val resId = if (it) R.drawable.ic_favorite_black_24dp
-                    else R.drawable.ic_favorite_border_black_24dp
+                    val resId = if (it) R.drawable.avd_unfavourite
+                    else R.drawable.avd_favourite
                     mutableFabIcon.value = resId
                 }
             )

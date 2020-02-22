@@ -1,10 +1,16 @@
 package fi.tomy.salminen.doublehelix.binding
 
+import android.graphics.drawable.Animatable
 import androidx.databinding.BindingAdapter
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
 
-@BindingAdapter("icon")
+@BindingAdapter("animateIcon")
 fun bindIcon(fab: ExtendedFloatingActionButton, res: Int) {
-    fab.setIconResource(res)
+    val animR: AnimatedVectorDrawableCompat? = AnimatedVectorDrawableCompat.create(fab.context, res)
+    animR?.let {
+        fab.icon = it
+        (fab.icon as Animatable?)?.start()
+    }
 }
