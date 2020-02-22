@@ -3,6 +3,7 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
 import fi.tomy.salminen.doublehelix.core.BaseActivity
@@ -31,6 +32,18 @@ class FeedActivity : BaseActivity<FeedActivityComponent>() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_feed, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_feed_add -> {
+                // Launch preview activity
+                return true
+            }
+            else -> {
+                return super.onOptionsItemSelected(item)
+            }
+        }
     }
 
     override fun onStop() {

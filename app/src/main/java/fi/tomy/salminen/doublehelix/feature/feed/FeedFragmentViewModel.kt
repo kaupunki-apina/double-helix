@@ -7,6 +7,8 @@ import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
+import io.reactivex.BackpressureStrategy
+import io.reactivex.rxkotlin.toFlowable
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +23,9 @@ class FeedFragmentViewModel(
     private val isLoadingDebounce: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = mutableIsLoading
+
+    private val mutableIsError: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isError: LiveData<Boolean> get() = mutableIsError
 
     init {
         compositeDisposable.addAll(
@@ -42,8 +47,16 @@ class FeedFragmentViewModel(
                 it.map { article -> vmFactory.create(article) }
             }
         } else {
-            LiveDataReactiveStreams.fromPublisher(articleRepository.getArticlesByUrl(feedUri).map {
-                it.map { pair -> vmFactory.create(pair.first, pair.second)}
+            LiveDataReactiveStreams.fromPublisher(articleRepository.getArticlesByUrl(feedUri)
+                .toFlowable(BackpressureStrategy.LATEST)
+                .doOnSubscribe {
+                    mutableIsError.postValue(false)
+                }
+                .doOnError {
+                    mutableIsError.postValue(true)
+                }
+                .onErrorReturn { emptyList() }
+                .map { it.map { pair -> vmFactory.create(pair.first, pair.second) }
             })
         }
     }
@@ -53,9 +66,10 @@ class FeedFragmentViewModel(
             .doOnSubscribe {
                 isLoadingDebounce.onNext(true)
             }
-            .doOnComplete {
+            .doFinally {
                 isLoadingDebounce.onNext(false)
             }
+            .onErrorComplete()
             .subscribe())
     }
 

@@ -33,20 +33,18 @@ class FeedPreviewActivityViewModel(
 
     init {
         if (feedUri != null) {
-            compositeDisposable.add(
+            compositeDisposable.addAll(
                 subscriptionRepository.getSubsctiptionByUrl(feedUri.toString())
                     .forEach {
-                        isSaved.onNext(it.size == 0)
-                    }
-            )
+                        isSaved.onNext(it.isEmpty())
+                    },
 
-            compositeDisposable.add(isSaved
-                .observeOn(AndroidSchedulers.mainThread())
-                .forEach {
-                    val resId = if (it) R.drawable.avd_unfavourite
-                    else R.drawable.avd_favourite
-                    mutableFabIcon.value = resId
-                }
+                isSaved.observeOn(AndroidSchedulers.mainThread())
+                    .forEach {
+                        val resId = if (it) R.drawable.avd_unfavourite
+                        else R.drawable.avd_favourite
+                        mutableFabIcon.value = resId
+                    }
             )
         }
     }

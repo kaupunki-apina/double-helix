@@ -28,21 +28,28 @@ class ArticleRepository @Inject constructor(
         return articleDao.getAll()
     }
 
-    fun getArticlesByUrl(uri: Uri): Flowable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
+    fun getArticlesByUrl(uri: Uri): Observable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
         return rssService.getRssFeed(uri.toString())
+            .doOnError {err ->
+                Log.e(
+                    TAG,
+                    "Failed to fetch feed: ${err.message}"
+                )
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map {
+                "Mapping"
                 val subEntity = SubscriptionEntity.from(it)
                 Pair(subEntity, it)
             }
             .flatMap {
-                Flowable.fromIterable(it.second.channel?.items)
+                Observable.fromIterable(it.second.channel?.items)
                     .flatMapMaybe { rssItem ->
                         Maybe.fromSingle(articleFactory.from(rssItem, it.first))
                             // If article cannot be parsed, ignore it
                             .onErrorResumeNext { _: Throwable ->
-                                Log.d(
+                                Log.i(
                                     TAG,
                                     "Parsing article failed likely due to unexpected date format - Discarding item"
                                 )
@@ -51,7 +58,7 @@ class ArticleRepository @Inject constructor(
                     }
                     .map { article -> Pair(it.first, article) }
                     .toList()
-                    .toFlowable()
+                    .toObservable()
             }
     }
 
@@ -68,6 +75,14 @@ class ArticleRepository @Inject constructor(
             .flatMap {
                 rssService.getRssFeed(it.url)
                     .map { rssModel -> Pair(it, rssModel) }
+                    .toFlowable(BackpressureStrategy.BUFFER)
+                    .doOnError {err ->
+                        // TODO Subscription should be removed if the host is not found
+                        Log.e(
+                            TAG,
+                            "Failed to fetch feed from ${it.url}, Message:${err.message}"
+                        )
+                    }
             }
             .flatMap {
                 Flowable.fromIterable(it.second.channel?.items)
