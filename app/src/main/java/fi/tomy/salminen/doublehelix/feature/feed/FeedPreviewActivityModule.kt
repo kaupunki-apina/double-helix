@@ -1,35 +1,35 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.app.Application
-import android.net.Uri
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
-import fi.tomy.salminen.doublehelix.core.BaseActivity
-import fi.tomy.salminen.doublehelix.inject.activity.ActivityScope
+import dagger.android.ContributesAndroidInjector
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
-import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
 
 @Module
-class FeedPreviewActivityModule(val feedUri: Uri?) {
+abstract class FeedPreviewActivityModule {
+    companion object {
+        @Provides
+        fun provideFeedFragmentViewModelFactory(
+            subscriptionRepository: SubscriptionRepository,
+            app: DoubleHelixApplication
+        ): FeedPreviewActivityViewModel.Factory {
+            return FeedPreviewActivityViewModel.Factory(subscriptionRepository, null, app)
+        }
 
-    @Provides
-    fun provideFeedFragmentViewModelFactory(
-        subscriptionRepository: SubscriptionRepository,
-        app: Application
-    ): FeedPreviewActivityViewModel.Factory {
-        return FeedPreviewActivityViewModel.Factory(subscriptionRepository, feedUri, app)
+        @Provides
+        fun provideFeedViewModel(
+            activity: FeedPreviewActivity,
+            factory: FeedPreviewActivityViewModel.Factory
+        ): FeedPreviewActivityViewModel {
+            return ViewModelProviders.of(activity, factory)[FeedPreviewActivityViewModel::class.java]
+        }
     }
 
-    @Provides
-    fun provideFeedViewModel(
-        activity: BaseActivity<*>,
-        factory: FeedPreviewActivityViewModel.Factory
-    ): FeedPreviewActivityViewModel {
-        return ViewModelProviders.of(activity, factory)[FeedPreviewActivityViewModel::class.java]
-    }
-
+    @FragmentScope
+    @ContributesAndroidInjector(modules = [FeedFragmentModule::class])
+    abstract fun feedFragmentInjector(): FeedFragment
 }

@@ -37,7 +37,7 @@ ext {
             androidMaterial : '1.1.0',
             chromeTabs      : '1.0.0',
             constraintLayout: '1.1.2',
-            dagger2         : '2.22',
+            dagger2         : '2.26',
             extensions      : '2.1.0-alpha02',
             glide           : '4.9.0',
             okHttp          : '3.13.1',
@@ -65,7 +65,10 @@ dependencies {
 
     // Dagger 2
     implementation "com.google.dagger:dagger:$dependencyVersions.dagger2"
+    implementation "com.google.dagger:dagger-android-support:$dependencyVersions.dagger2"
     kapt "com.google.dagger:dagger-compiler:$dependencyVersions.dagger2"
+    kapt "com.google.dagger:dagger-android-processor:$dependencyVersions.dagger2"
+
 
     // OkHttp
     implementation "com.squareup.okhttp3:okhttp:$dependencyVersions.okHttp"

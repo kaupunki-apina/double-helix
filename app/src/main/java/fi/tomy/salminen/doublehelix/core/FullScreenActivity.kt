@@ -3,8 +3,9 @@ package fi.tomy.salminen.doublehelix.core
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
+import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 
-abstract class FullScreenActivity<T> : BaseActivity<T>() {
+abstract class FullScreenActivity : BaseActivity() {
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {

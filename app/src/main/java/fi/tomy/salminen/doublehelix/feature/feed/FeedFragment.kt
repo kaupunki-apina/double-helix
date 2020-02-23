@@ -2,20 +2,20 @@ package fi.tomy.salminen.doublehelix.feature.feed
 
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import fi.tomy.salminen.doublehelix.R
-import fi.tomy.salminen.doublehelix.core.BaseFragment
+import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragment
 import fi.tomy.salminen.doublehelix.databinding.FragmentFeedBinding
-import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
-import fi.tomy.salminen.doublehelix.inject.fragment.DaggerBaseFragmentComponent
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment<FeedFragmentComponent>() {
+class FeedFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModel: FeedFragmentViewModel
@@ -38,15 +38,6 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         return binding.root
     }
 
-    override fun createComponent(): FeedFragmentComponent {
-        return DaggerFeedFragmentComponent.factory().create(
-            helixActivity.helixApplication.component,
-            DaggerBaseFragmentComponent.factory().create(BaseFragmentModule(this)),
-            FeedFragmentModule(),
-            arguments
-        )
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
@@ -61,10 +52,6 @@ class FeedFragment : BaseFragment<FeedFragmentComponent>() {
         swipe_refresh.setOnRefreshListener {
             viewModel.updateArticles()
         }
-    }
-
-    override fun inject() {
-        component.inject(this)
     }
 
     companion object {

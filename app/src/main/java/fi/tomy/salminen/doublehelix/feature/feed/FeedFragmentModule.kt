@@ -1,33 +1,38 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.app.Application
 import android.content.Context
-import android.net.Uri
-import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.Module
 import dagger.Provides
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.common.DateFormatter
-import fi.tomy.salminen.doublehelix.core.BaseFragment
+import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragment
+import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragmentModule
 import fi.tomy.salminen.doublehelix.inject.fragment.ForFragment
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 
 
 @Module
-class FeedFragmentModule {
+class FeedFragmentModule : BaseFragmentModule<FeedFragment>() {
 
     @Provides
     fun provideFeedFragmentViewModelFactory(
+        fragment: BaseFragment,
         articleRepository: ArticleRepository,
         subscriptionRepository: SubscriptionRepository,
-        app: Application,
-        vmFactory: ArticleListItemViewModel.Factory,
-        arguments: Bundle?
+        app: DoubleHelixApplication,
+        vmFactory: ArticleListItemViewModel.Factory
     ): FeedFragmentViewModel.Factory {
-        return FeedFragmentViewModel.Factory(articleRepository, subscriptionRepository, app, vmFactory, arguments?.getParcelable(FeedFragment.EXTRA_FEED_URI))
+        return FeedFragmentViewModel.Factory(
+            articleRepository,
+            subscriptionRepository,
+            app,
+            vmFactory,
+            fragment.arguments?.getParcelable(FeedFragment.EXTRA_FEED_URI)
+        )
     }
 
     @Provides
@@ -36,10 +41,9 @@ class FeedFragmentModule {
     }
 
     @Provides
-    fun provideFeedViewModel(fragment: BaseFragment<*>, factory: FeedFragmentViewModel.Factory): FeedFragmentViewModel {
+    fun provideFeedViewModel(fragment: BaseFragment, factory: FeedFragmentViewModel.Factory): FeedFragmentViewModel {
         return ViewModelProviders.of(fragment, factory)[FeedFragmentViewModel::class.java]
     }
-
 
     @Provides
     fun provideLayoutManager(@ForFragment context: Context): RecyclerView.LayoutManager {

@@ -1,17 +1,17 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 
 
 class FeedActivityViewModel(
-    app: Application
+    app: DoubleHelixApplication
 ) : BaseContextViewModel(app) {
 
     class Factory(
-        val app: Application
+        val app: DoubleHelixApplication
     ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

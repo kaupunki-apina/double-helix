@@ -2,10 +2,10 @@ package fi.tomy.salminen.doublehelix.service.http
 
 import dagger.Module
 import dagger.Provides
-import okhttp3.OkHttpClient
-import android.app.Application
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
+import okhttp3.OkHttpClient
 import org.simpleframework.xml.convert.AnnotationStrategy
 import org.simpleframework.xml.core.Persister
 import retrofit2.Retrofit
@@ -19,7 +19,7 @@ class HttpServiceModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpCache(application: Application): Cache {
+    fun provideOkHttpCache(application: DoubleHelixApplication): Cache {
         val cacheSize: Long = 10 * 1024 * 1024 // 10 MiB
         return Cache(application.cacheDir, cacheSize)
     }

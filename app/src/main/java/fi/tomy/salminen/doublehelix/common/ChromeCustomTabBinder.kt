@@ -2,9 +2,9 @@ package fi.tomy.salminen.doublehelix.common
 
 import android.content.ComponentName
 import android.content.ServiceConnection
-import androidx.browser.customtabs.CustomTabsServiceConnection
 import androidx.browser.customtabs.CustomTabsClient
-import fi.tomy.salminen.doublehelix.core.BaseActivity
+import androidx.browser.customtabs.CustomTabsServiceConnection
+import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import java.lang.ref.WeakReference
 
 
@@ -13,14 +13,14 @@ class ChromeCustomTabBinder : ServiceConnectionCallback {
     private var client: CustomTabsClient? = null
     private var connection: CustomTabsServiceConnection? = null
 
-    fun bind(activity: BaseActivity<*>) : Boolean {
+    fun bind(activity: BaseActivity) : Boolean {
         if (client != null) return false
         connection = MyServiceConnection(this)
         CustomTabsClient.bindCustomTabsService(activity, packageName, connection)
         return true
     }
 
-    fun unbind(activity: BaseActivity<*>) {
+    fun unbind(activity: BaseActivity) {
         if (connection == null) return
         activity.unbindService(connection as ServiceConnection)
         client = null

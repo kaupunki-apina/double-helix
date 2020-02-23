@@ -1,14 +1,13 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.*
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 import io.reactivex.BackpressureStrategy
-import io.reactivex.rxkotlin.toFlowable
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class FeedFragmentViewModel(
     private val articleRepository: ArticleRepository,
     subscriptionRepository: SubscriptionRepository,
-    app: Application,
+    app: DoubleHelixApplication,
     private val vmFactory: ArticleListItemViewModel.Factory,
     private val feedUri: Uri?
 ) : BaseContextViewModel(app) {
@@ -76,7 +75,7 @@ class FeedFragmentViewModel(
     class Factory(
         val articleRepository: ArticleRepository,
         private val subscriptionRepository: SubscriptionRepository,
-        val app: Application,
+        val app: DoubleHelixApplication,
         val vmFactory: ArticleListItemViewModel.Factory,
         val feedUri: Uri?
     ) : ViewModelProvider.Factory {

@@ -1,6 +1,5 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
@@ -8,22 +7,20 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DoneOnEditorActionListener
-import fi.tomy.salminen.doublehelix.core.BaseActivity
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
-import fi.tomy.salminen.doublehelix.inject.activity.BaseActivityModule
-import fi.tomy.salminen.doublehelix.inject.activity.DaggerBaseActivityComponent
+import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_feed_preview.*
 import javax.inject.Inject
 
 
-class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
+class FeedPreviewActivity : BaseActivity() {
     @Inject
     lateinit var viewModel: FeedPreviewActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding : ActivityFeedPreviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_feed_preview)
+        val binding: ActivityFeedPreviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_feed_preview)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)
@@ -37,14 +34,6 @@ class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
         contentFragment?.arguments = Bundle().apply {
             putParcelable(FeedFragment.EXTRA_FEED_URI, intent?.data)
         }
-    }
-
-    override fun createComponent(): FeedPreviewActivityComponent {
-        return DaggerFeedPreviewActivityComponent.factory().create(
-            helixApplication.component,
-            DaggerBaseActivityComponent.factory().create(BaseActivityModule(this)),
-            FeedPreviewActivityModule(intent?.data)
-        )
     }
 
     /**
@@ -63,9 +52,5 @@ class FeedPreviewActivity : BaseActivity<FeedPreviewActivityComponent>() {
             }
         }
         return super.dispatchTouchEvent(event)
-    }
-
-    override fun inject() {
-        component.inject(this)
     }
 }

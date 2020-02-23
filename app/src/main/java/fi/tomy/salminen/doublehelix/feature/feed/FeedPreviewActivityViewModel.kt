@@ -1,15 +1,17 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.app.Application
 import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import fi.tomy.salminen.doublehelix.R
+import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
@@ -21,7 +23,7 @@ import io.reactivex.subjects.BehaviorSubject
 class FeedPreviewActivityViewModel(
     private val subscriptionRepository: SubscriptionRepository,
     val feedUri: Uri?,
-    app: Application
+    app: DoubleHelixApplication
 ) : BaseContextViewModel(app) {
     private val TAG = "FeedPreviewActivityViewModel"
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
@@ -108,7 +110,7 @@ class FeedPreviewActivityViewModel(
     class Factory(
         private val subscriptionRepository: SubscriptionRepository,
         val feedUri: Uri?,
-        private val app: Application
+        private val app: DoubleHelixApplication
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FeedPreviewActivityViewModel(subscriptionRepository, feedUri, app) as T
