@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import fi.tomy.salminen.doublehelix.R
-import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragment
 import fi.tomy.salminen.doublehelix.databinding.FragmentFeedBinding
+import fi.tomy.salminen.doublehelix.inject.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
@@ -22,9 +22,6 @@ class FeedFragment : BaseFragment() {
 
     @Inject
     lateinit var adapter: ArticleListAdapter
-
-    @Inject
-    lateinit var layoutManager: RecyclerView.LayoutManager
 
     lateinit var binding : FragmentFeedBinding
 
@@ -42,7 +39,7 @@ class FeedFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
         feed_view.adapter = adapter
-        feed_view.layoutManager = layoutManager
+        feed_view.layoutManager = LinearLayoutManager(requireContext())
         viewModel.getArticles().observe(this, Observer {
             if (it != null) {
                 adapter.setArticles(it)
