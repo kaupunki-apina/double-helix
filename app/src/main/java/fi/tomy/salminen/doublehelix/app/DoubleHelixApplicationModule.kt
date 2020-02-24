@@ -11,12 +11,4 @@ import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationModule
 
 
 @Module(includes = [BaseApplicationModule::class])
-abstract class DoubleHelixApplicationModule {
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [FeedActivityModule::class])
-    abstract fun feedActivityInjector(): FeedActivity
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [FeedPreviewActivityModule::class])
-    abstract fun feedPreviewActivityInjector(): FeedPreviewActivity
-}
+abstract class DoubleHelixApplicationModule

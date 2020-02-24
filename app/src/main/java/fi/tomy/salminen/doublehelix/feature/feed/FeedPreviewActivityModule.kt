@@ -28,8 +28,4 @@ abstract class FeedPreviewActivityModule {
             return ViewModelProviders.of(activity, factory)[FeedPreviewActivityViewModel::class.java]
         }
     }
-
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [FeedFragmentModule::class])
-    abstract fun feedFragmentInjector(): FeedFragment
 }

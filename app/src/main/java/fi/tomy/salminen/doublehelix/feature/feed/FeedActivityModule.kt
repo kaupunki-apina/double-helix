@@ -32,7 +32,5 @@ abstract class FeedActivityModule {
         }
     }
 
-    @FragmentScope
-    @ContributesAndroidInjector(modules = [FeedFragmentModule::class])
-    abstract fun feedFragmentInjector(): FeedFragment
+
 }
