@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.viewmodel
+package fi.tomy.salminen.doublehelix.inject.viewmodel
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

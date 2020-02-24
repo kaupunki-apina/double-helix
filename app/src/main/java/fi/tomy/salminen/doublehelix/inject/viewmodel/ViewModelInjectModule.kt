@@ -8,7 +8,6 @@ import dagger.multibindings.IntoMap
 import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityViewModel
 import fi.tomy.salminen.doublehelix.feature.feed.FeedFragmentViewModel
 import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityViewModel
-import fi.tomy.salminen.doublehelix.feature.viewmodel.ViewModelFactory
 
 
 @Module
