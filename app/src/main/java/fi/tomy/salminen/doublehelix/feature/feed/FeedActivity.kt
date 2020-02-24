@@ -14,8 +14,6 @@ import javax.inject.Inject
 
 
 class FeedActivity : BaseActivity() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var binder: ChromeCustomTabBinder

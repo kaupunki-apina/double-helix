@@ -16,9 +16,6 @@ import javax.inject.Inject
 
 
 class FeedPreviewActivity : BaseActivity() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
