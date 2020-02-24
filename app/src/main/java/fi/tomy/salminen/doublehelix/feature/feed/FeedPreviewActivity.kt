@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DoneOnEditorActionListener
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
@@ -15,12 +17,13 @@ import javax.inject.Inject
 
 class FeedPreviewActivity : BaseActivity() {
     @Inject
-    lateinit var viewModel: FeedPreviewActivityViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityFeedPreviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_feed_preview)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)[FeedPreviewActivityViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)

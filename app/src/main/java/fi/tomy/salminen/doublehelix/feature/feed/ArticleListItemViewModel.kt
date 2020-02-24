@@ -10,6 +10,7 @@ import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
+import javax.inject.Inject
 
 
 class ArticleListItemViewModel(
@@ -19,7 +20,7 @@ class ArticleListItemViewModel(
     val subscription: String?,
     val imageUrl: String?,
     val url: String?
-    ) : BaseViewModel() {
+) : BaseViewModel() {
 
 
     fun onClick(view: View) {
@@ -29,7 +30,7 @@ class ArticleListItemViewModel(
             .launchUrl(view.context, Uri.parse(url))
     }
 
-    class Factory(val dateFormatter: DateFormatter) {
+    class Factory @Inject constructor(val dateFormatter: DateFormatter) {
         fun create(model: ArticleDatabaseView): ArticleListItemViewModel {
             return ArticleListItemViewModel(
                 model.title,
@@ -41,7 +42,7 @@ class ArticleListItemViewModel(
             )
         }
 
-        fun create(subscriptionEntity: SubscriptionEntity, articleEntity: ArticleEntity) : ArticleListItemViewModel {
+        fun create(subscriptionEntity: SubscriptionEntity, articleEntity: ArticleEntity): ArticleListItemViewModel {
             return ArticleListItemViewModel(
                 articleEntity.title,
                 articleEntity.description,

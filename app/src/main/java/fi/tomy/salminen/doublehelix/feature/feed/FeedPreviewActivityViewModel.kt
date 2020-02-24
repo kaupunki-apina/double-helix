@@ -1,28 +1,23 @@
 package fi.tomy.salminen.doublehelix.feature.feed
 
-import android.net.Uri
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
-import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 
-class FeedPreviewActivityViewModel(
+class FeedPreviewActivityViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository,
-    val feedUri: Uri?,
     app: DoubleHelixApplication
 ) : BaseContextViewModel(app) {
     private val TAG = "FeedPreviewActivityViewModel"
@@ -39,10 +34,12 @@ class FeedPreviewActivityViewModel(
 
     init {
         compositeDisposable.addAll(
+            /*
             subscriptionRepository.getSubsctiptionByUrl(feedUri.toString())
                 .forEach {
                     isSaved.onNext(it.isEmpty())
                 },
+            */
 
             isSaved.observeOn(AndroidSchedulers.mainThread())
                 .forEach {
@@ -73,10 +70,13 @@ class FeedPreviewActivityViewModel(
     }
 
     fun onFabClick(sender: View) {
+        return
+        /*
         if (feedUri == null) {
             Log.i(TAG, "Attempted to add a null feed uri. Ignoring.")
             return
         }
+
 
         // Cancel the previous in flight click handling.
         if (onClickDisposable?.isDisposed == false) {
@@ -97,6 +97,7 @@ class FeedPreviewActivityViewModel(
 
         compositeDisposable.add(disposable)
         onClickDisposable = disposable
+        */
     }
 
     fun onFocusChange(v: View?, hasFocus: Boolean) {
@@ -105,15 +106,5 @@ class FeedPreviewActivityViewModel(
 
     fun onTextChanged(text: CharSequence, start: Int, before: Int, count: Int) {
         searchTermSubject.onNext(text)
-    }
-
-    class Factory(
-        private val subscriptionRepository: SubscriptionRepository,
-        val feedUri: Uri?,
-        private val app: DoubleHelixApplication
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedPreviewActivityViewModel(subscriptionRepository, feedUri, app) as T
-        }
     }
 }

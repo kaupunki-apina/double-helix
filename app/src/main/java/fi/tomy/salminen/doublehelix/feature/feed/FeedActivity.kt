@@ -4,6 +4,8 @@ package fi.tomy.salminen.doublehelix.feature.feed
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
@@ -13,13 +15,14 @@ import javax.inject.Inject
 
 class FeedActivity : BaseActivity() {
     @Inject
-    lateinit var viewModel: FeedActivityViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var binder: ChromeCustomTabBinder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)[FeedActivityViewModel::class.java]
         setContentView(R.layout.activity_feed)
         setSupportActionBar(bottom_bar)
         binder.bind(this)

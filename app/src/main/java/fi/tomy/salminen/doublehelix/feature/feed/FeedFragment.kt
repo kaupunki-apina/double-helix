@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.databinding.FragmentFeedBinding
@@ -18,7 +20,7 @@ import javax.inject.Inject
 class FeedFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModel: FeedFragmentViewModel
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var adapter: ArticleListAdapter
@@ -37,6 +39,7 @@ class FeedFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)[FeedFragmentViewModel::class.java]
         binding.viewModel = viewModel
         feed_view.adapter = adapter
         feed_view.layoutManager = LinearLayoutManager(requireContext())

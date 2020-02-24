@@ -10,14 +10,14 @@ import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionR
 import io.reactivex.BackpressureStrategy
 import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
-class FeedFragmentViewModel(
+class FeedFragmentViewModel @Inject constructor(
     private val articleRepository: ArticleRepository,
     subscriptionRepository: SubscriptionRepository,
     app: DoubleHelixApplication,
-    private val vmFactory: ArticleListItemViewModel.Factory,
-    private val feedUri: Uri?
+    private val vmFactory: ArticleListItemViewModel.Factory
 ) : BaseContextViewModel(app) {
     private val isLoadingDebounce: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -41,10 +41,12 @@ class FeedFragmentViewModel(
     }
 
     fun getArticles(): LiveData<List<ArticleListItemViewModel>> {
-        return if (feedUri == null) {
-            Transformations.map<List<ArticleDatabaseView>, List<ArticleListItemViewModel>>(articleRepository.getArticles()) {
+        // return if (feedUri == null) {
+            return Transformations.map<List<ArticleDatabaseView>, List<ArticleListItemViewModel>>(articleRepository.getArticles()) {
                 it.map { article -> vmFactory.create(article) }
+
             }
+        /*
         } else {
             LiveDataReactiveStreams.fromPublisher(articleRepository.getArticlesByUrl(feedUri)
                 .toFlowable(BackpressureStrategy.LATEST)
@@ -55,9 +57,11 @@ class FeedFragmentViewModel(
                     mutableIsError.postValue(true)
                 }
                 .onErrorReturn { emptyList() }
-                .map { it.map { pair -> vmFactory.create(pair.first, pair.second) }
-            })
+                .map {
+                    it.map { pair -> vmFactory.create(pair.first, pair.second) }
+                })
         }
+        */
     }
 
     fun updateArticles() {
@@ -70,17 +74,5 @@ class FeedFragmentViewModel(
             }
             .onErrorComplete()
             .subscribe())
-    }
-
-    class Factory(
-        val articleRepository: ArticleRepository,
-        private val subscriptionRepository: SubscriptionRepository,
-        val app: DoubleHelixApplication,
-        val vmFactory: ArticleListItemViewModel.Factory,
-        val feedUri: Uri?
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedFragmentViewModel(articleRepository, subscriptionRepository, app, vmFactory, feedUri) as T
-        }
     }
 }
