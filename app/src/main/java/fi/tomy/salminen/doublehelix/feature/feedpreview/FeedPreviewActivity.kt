@@ -14,7 +14,7 @@ import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_feed_preview.*
 
 
-class FeedPreviewActivity : BaseActivity() {
+class FeedPreviewActivity : BaseActivity<FeedPreviewActivityViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

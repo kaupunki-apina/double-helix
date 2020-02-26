@@ -13,14 +13,14 @@ class ChromeCustomTabBinder : ServiceConnectionCallback {
     private var client: CustomTabsClient? = null
     private var connection: CustomTabsServiceConnection? = null
 
-    fun bind(activity: BaseActivity) : Boolean {
+    fun bind(activity: BaseActivity<*>) : Boolean {
         if (client != null) return false
         connection = MyServiceConnection(this)
         CustomTabsClient.bindCustomTabsService(activity, packageName, connection)
         return true
     }
 
-    fun unbind(activity: BaseActivity) {
+    fun unbind(activity: BaseActivity<*>) {
         if (connection == null) return
         activity.unbindService(connection as ServiceConnection)
         client = null

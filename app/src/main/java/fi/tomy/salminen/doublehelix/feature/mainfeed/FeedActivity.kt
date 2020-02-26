@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
 
-class FeedActivity : BaseActivity() {
+class FeedActivity : BaseActivity<FeedActivityViewModel>() {
 
     @Inject
     lateinit var binder: ChromeCustomTabBinder

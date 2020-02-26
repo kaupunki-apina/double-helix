@@ -4,4 +4,4 @@ import dagger.Module
 
 
 @Module
-class ArticleListFragmentModule
+abstract class ArticleListFragmentModule

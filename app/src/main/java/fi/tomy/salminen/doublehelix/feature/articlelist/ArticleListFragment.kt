@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 
-class ArticleListFragment : BaseFragment() {
+class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
 
     @Inject
     lateinit var adapter: ArticleListAdapter

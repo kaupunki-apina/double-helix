@@ -5,7 +5,6 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import fi.tomy.salminen.doublehelix.inject.activity.ActivityInjectionModule
-import fi.tomy.salminen.doublehelix.inject.viewmodel.ViewModelInjectModule
 import fi.tomy.salminen.doublehelix.service.http.HttpServiceModule
 import fi.tomy.salminen.doublehelix.service.persistence.PersistenceModule
 import fi.tomy.salminen.doublehelix.service.rss.RssServiceModule
@@ -19,8 +18,7 @@ import javax.inject.Singleton
         HttpServiceModule::class,
         RssServiceModule::class,
         PersistenceModule::class,
-        ActivityInjectionModule::class,
-        ViewModelInjectModule::class
+        ActivityInjectionModule::class
     ]
 )
 @Singleton
