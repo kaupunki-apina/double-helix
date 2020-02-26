@@ -6,7 +6,7 @@ import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DateFormatter
-import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseViewModel
+import fi.tomy.salminen.doublehelix.viewmodel.BaseViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity

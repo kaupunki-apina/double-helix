@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.viewmodel
+package fi.tomy.salminen.doublehelix.viewmodel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

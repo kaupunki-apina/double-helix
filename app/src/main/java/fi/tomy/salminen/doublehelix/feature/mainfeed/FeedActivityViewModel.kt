@@ -2,7 +2,7 @@ package fi.tomy.salminen.doublehelix.feature.mainfeed
 
 
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
-import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
+import fi.tomy.salminen.doublehelix.viewmodel.BaseContextViewModel
 import javax.inject.Inject
 
 

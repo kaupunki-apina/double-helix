@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
-import fi.tomy.salminen.doublehelix.feature.viewmodel.BaseContextViewModel
+import fi.tomy.salminen.doublehelix.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
