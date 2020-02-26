@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.feed
+package fi.tomy.salminen.doublehelix.feature.feedpreview
 
 import android.text.SpannableString
 import android.text.Spanned

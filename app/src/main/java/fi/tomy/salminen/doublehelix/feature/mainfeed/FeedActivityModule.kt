@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.feed
+package fi.tomy.salminen.doublehelix.feature.mainfeed
 
 
 import dagger.Module

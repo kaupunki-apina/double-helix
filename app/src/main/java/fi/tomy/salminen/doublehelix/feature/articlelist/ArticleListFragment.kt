@@ -1,4 +1,4 @@
-package fi.tomy.salminen.doublehelix.feature.feed
+package fi.tomy.salminen.doublehelix.feature.articlelist
 
 
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import fi.tomy.salminen.doublehelix.R
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment() {
+class ArticleListFragment : BaseFragment() {
 
     @Inject
     lateinit var adapter: ArticleListAdapter
@@ -36,7 +35,7 @@ class FeedFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(this, viewModelFactory)[FeedFragmentViewModel::class.java]
+        val viewModel = ViewModelProviders.of(this, viewModelFactory)[ArticleListFragmentViewModel::class.java]
         binding.viewModel = viewModel
         feed_view.adapter = adapter
         feed_view.layoutManager = LinearLayoutManager(requireContext())
@@ -53,8 +52,8 @@ class FeedFragment : BaseFragment() {
 
     companion object {
         val EXTRA_FEED_URI = "feed_uri"
-        fun newInstance(): FeedFragment {
-            return FeedFragment()
+        fun newInstance(): ArticleListFragment {
+            return ArticleListFragment()
         }
     }
 }

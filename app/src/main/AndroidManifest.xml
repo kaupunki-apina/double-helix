@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature.feed.FeedPreviewActivity"
+            android:name=".feature.feedpreview.FeedPreviewActivity"
             android:theme="@style/AppTheme.ToolbarActivity">
             <!-- RSS Link intent filters -->
             <intent-filter>
@@ -50,7 +50,7 @@
                 <data android:scheme="rss"/>
             </intent-filter>
         </activity>
-        <activity android:name=".feature.feed.FeedActivity">
+        <activity android:name=".feature.mainfeed.FeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>

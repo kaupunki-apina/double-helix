@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="fi.tomy.salminen.doublehelix.feature.feed.FeedFragmentViewModel"/>
+            type="fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragmentViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:background="@color/surface"
         tools:showIn="@layout/activity_feed"
-        tools:context=".feature.feed.FeedFragment">
+        tools:context=".feature.articlelist.ArticleListFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"

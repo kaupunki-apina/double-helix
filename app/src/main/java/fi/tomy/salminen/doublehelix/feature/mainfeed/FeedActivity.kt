@@ -1,10 +1,9 @@
-package fi.tomy.salminen.doublehelix.feature.feed
+package fi.tomy.salminen.doublehelix.feature.mainfeed
 
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder

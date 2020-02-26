@@ -5,9 +5,9 @@ import dagger.Binds
 import androidx.lifecycle.ViewModel
 import dagger.Module
 import dagger.multibindings.IntoMap
-import fi.tomy.salminen.doublehelix.feature.feed.FeedActivityViewModel
-import fi.tomy.salminen.doublehelix.feature.feed.FeedFragmentViewModel
-import fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityViewModel
+import fi.tomy.salminen.doublehelix.feature.mainfeed.FeedActivityViewModel
+import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragmentViewModel
+import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityViewModel
 
 
 @Module
@@ -15,8 +15,8 @@ abstract class ViewModelInjectModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FeedFragmentViewModel::class)
-    internal abstract fun bindFeedFragmentViewModel(feedFragmentViewModel: FeedFragmentViewModel): ViewModel
+    @ViewModelKey(ArticleListFragmentViewModel::class)
+    internal abstract fun bindFeedFragmentViewModel(articleListFragmentViewModel: ArticleListFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap

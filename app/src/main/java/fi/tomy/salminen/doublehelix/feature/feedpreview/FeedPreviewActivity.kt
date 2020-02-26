@@ -1,18 +1,17 @@
-package fi.tomy.salminen.doublehelix.feature.feed
+package fi.tomy.salminen.doublehelix.feature.feedpreview
 
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DoneOnEditorActionListener
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
+import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragment
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_feed_preview.*
-import javax.inject.Inject
 
 
 class FeedPreviewActivity : BaseActivity() {
@@ -32,7 +31,7 @@ class FeedPreviewActivity : BaseActivity() {
 
         search_field.setOnEditorActionListener(DoneOnEditorActionListener())
         contentFragment?.arguments = Bundle().apply {
-            putParcelable(FeedFragment.EXTRA_FEED_URI, intent?.data)
+            putParcelable(ArticleListFragment.EXTRA_FEED_URI, intent?.data)
         }
     }
 

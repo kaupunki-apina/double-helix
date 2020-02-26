@@ -5,11 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.feed.FeedActivity">
+    tools:context=".feature.mainfeed.FeedActivity">
 
     <fragment
         android:id="@+id/feed_fragment"
-        android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
+        android:name="fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:showIn="@layout/activity_feed"

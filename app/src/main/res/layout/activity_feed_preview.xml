@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.feed.FeedActivity">
+    tools:context=".feature.mainfeed.FeedActivity">
     <data>
         <variable
             name="viewModel"
-            type="fi.tomy.salminen.doublehelix.feature.feed.FeedPreviewActivityViewModel"/>
+            type="fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivityViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -41,7 +41,7 @@
         <fragment
             android:background="@color/secondaryColor"
             android:id="@+id/feed_fragment"
-            android:name="fi.tomy.salminen.doublehelix.feature.feed.FeedFragment"
+            android:name="fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:showIn="@layout/activity_feed"
