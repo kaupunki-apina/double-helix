@@ -16,6 +16,4 @@ abstract class FeedActivityModule {
             return ChromeCustomTabBinder()
         }
     }
-
-
 }
