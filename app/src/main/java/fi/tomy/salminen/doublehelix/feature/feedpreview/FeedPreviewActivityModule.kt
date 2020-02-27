@@ -6,6 +6,7 @@ import dagger.android.ContributesAndroidInjector
 import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragment
 import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragmentModule
 import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListItemViewModel
+import fi.tomy.salminen.doublehelix.feature.articlelist.ForArticleList
 import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
 import fi.tomy.salminen.doublehelix.service.persistence.repository.ArticleRepository
 import io.reactivex.Completable
@@ -17,6 +18,7 @@ abstract class FeedPreviewActivityModule {
 
     companion object {
         @Provides
+        @ForArticleList
         fun provideFeedSource(
             articleRepository: ArticleRepository,
             vmFactory: ArticleListItemViewModel.Factory
@@ -29,6 +31,7 @@ abstract class FeedPreviewActivityModule {
         }
 
         @Provides
+        @ForArticleList
         fun requestRefresh(articleRepository: ArticleRepository): Completable {
             return articleRepository.updateArticles()
         }

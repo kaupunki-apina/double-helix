@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 class ArticleListFragmentViewModel @Inject constructor(
     app: DoubleHelixApplication,
-    private val requestRefresh: Completable,
-    articlesSource: Flowable<List<ArticleListItemViewModel>>
+    @ForArticleList private val requestRefresh: Completable,
+    @ForArticleList articlesSource: Flowable<List<ArticleListItemViewModel>>
 ) : BaseContextViewModel(app) {
     var requestRefreshSubscription: Disposable? = null
     private val mutableIsLoading: MutableLiveData<Boolean> = MutableLiveData(false)

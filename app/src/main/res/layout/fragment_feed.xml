@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:spinnerColor="@{@color/secondaryColor}"
-            app:isRefrashing='@{viewModel.isLoading}'>
+            app:isRefreshing='@{viewModel.isLoading}'
+            app:onRefreshListener='@{viewModel.onRefresh}'>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/feed_view"

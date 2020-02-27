@@ -9,7 +9,7 @@ fun bindTintColor(refreshLayout: SwipeRefreshLayout, res: Int) {
     refreshLayout.setColorSchemeColors(res)
 }
 
-@BindingAdapter("isRefrashing")
+@BindingAdapter("isRefreshing")
 fun bindIsRefreshing(refreshLayout: SwipeRefreshLayout, isRefeshing: Boolean) {
     refreshLayout.isRefreshing = isRefeshing
 }
