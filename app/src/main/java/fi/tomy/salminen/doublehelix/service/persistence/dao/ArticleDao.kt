@@ -1,6 +1,5 @@
 package fi.tomy.salminen.doublehelix.service.persistence.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -14,7 +13,7 @@ import io.reactivex.Maybe
 @Dao
 abstract class ArticleDao {
     @Query("SELECT * FROM article_database_view ORDER BY datetime(publishDate) DESC")
-    abstract fun getAll(): LiveData<List<ArticleDatabaseView>>
+    abstract fun getAll(): Flowable<List<ArticleDatabaseView>>
 
     @Query("SELECT * FROM article_database_view WHERE id = :articleId")
     abstract fun getWhereMaybe(articleId: Int): Maybe<ArticleDatabaseView>

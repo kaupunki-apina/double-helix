@@ -24,7 +24,7 @@ class ArticleRepository @Inject constructor(
     private val TAG = "ArticleRepository"
     private val articleDao = database.articleDao()
 
-    fun getArticles(): LiveData<List<ArticleDatabaseView>> {
+    fun getArticles(): Flowable<List<ArticleDatabaseView>> {
         return articleDao.getAll()
     }
 

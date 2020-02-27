@@ -17,10 +17,8 @@ import javax.inject.Inject
 
 
 class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
-
     @Inject
-    lateinit var adapter: ArticleListAdapter
-
+    lateinit var adapter : ArticleListAdapter
     lateinit var binding : FragmentFeedBinding
 
     override fun onCreateView(
@@ -39,15 +37,9 @@ class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
         binding.viewModel = viewModel
         feed_view.adapter = adapter
         feed_view.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.getArticles().observe(this, Observer {
-            if (it != null) {
-                adapter.setArticles(it)
-            }
+        viewModel.articles.observe(this, Observer {
+            adapter.setArticles(it)
         })
-
-        swipe_refresh.setOnRefreshListener {
-            viewModel.updateArticles()
-        }
     }
 
     companion object {
