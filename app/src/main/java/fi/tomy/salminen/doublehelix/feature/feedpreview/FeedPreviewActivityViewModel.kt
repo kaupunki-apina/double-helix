@@ -5,11 +5,13 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
-import fi.tomy.salminen.doublehelix.viewmodel.BaseContextViewModel
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
+import fi.tomy.salminen.doublehelix.viewmodel.BaseViewModel
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.Observables
@@ -18,8 +20,9 @@ import javax.inject.Inject
 
 class FeedPreviewActivityViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository,
-    app: DoubleHelixApplication
-) : BaseContextViewModel(app) {
+    private val app: DoubleHelixApplication,
+    defaultUrl: String?
+) : BaseViewModel() {
     private val TAG = "FeedPreviewActivityViewModel"
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
     private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.avd_unfavourite)
@@ -30,7 +33,10 @@ class FeedPreviewActivityViewModel @Inject constructor(
     val isFabHidden: LiveData<Boolean> get () = mutableIsFabHidden
 
     private val focusSubject = BehaviorSubject.createDefault(false)
-    private val searchTermSubject = BehaviorSubject.createDefault<CharSequence>("")
+
+    private val searchTermSubject = BehaviorSubject.createDefault<CharSequence>(defaultUrl ?: "")
+    val searchTerm: LiveData<CharSequence> =
+        LiveDataReactiveStreams.fromPublisher(searchTermSubject.toFlowable(BackpressureStrategy.DROP))
 
     init {
         compositeDisposable.addAll(

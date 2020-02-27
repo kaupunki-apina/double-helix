@@ -9,30 +9,30 @@ import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.DoneOnEditorActionListener
 import fi.tomy.salminen.doublehelix.databinding.ActivityFeedPreviewBinding
-import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragment
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_feed_preview.*
 
 
 class FeedPreviewActivity : BaseActivity<FeedPreviewActivityViewModel>() {
 
+    companion object {
+        public val EXTRA_FEED_URI = "feed_preview_activity_feed_uri"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val binding: ActivityFeedPreviewBinding = DataBindingUtil.setContentView(this, R.layout.activity_feed_preview)
         val viewModel = ViewModelProviders.of(this, viewModelFactory)[FeedPreviewActivityViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        val contentFragment = supportFragmentManager.findFragmentById(R.id.feed_fragment)
-        setSupportActionBar(toolbar)
 
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         search_field.setOnEditorActionListener(DoneOnEditorActionListener())
-        contentFragment?.arguments = Bundle().apply {
-            putParcelable(ArticleListFragment.EXTRA_FEED_URI, intent?.data)
-        }
     }
 
     /**

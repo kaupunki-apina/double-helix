@@ -43,7 +43,6 @@ class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
     }
 
     companion object {
-        val EXTRA_FEED_URI = "feed_uri"
         fun newInstance(): ArticleListFragment {
             return ArticleListFragment()
         }
