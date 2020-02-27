@@ -1,76 +1,37 @@
 package fi.tomy.salminen.doublehelix.feature.feedpreview
 
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
+import fi.tomy.salminen.doublehelix.inject.activity.ActivityScope
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 import fi.tomy.salminen.doublehelix.viewmodel.BaseViewModel
-import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class FeedPreviewActivityViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository,
     private val app: DoubleHelixApplication,
-    defaultUrl: String?
+    @ActivityScope private val urlSubject: BehaviorSubject<String>
 ) : BaseViewModel() {
     private val TAG = "FeedPreviewActivityViewModel"
-    private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
+    private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.create()
     private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.avd_unfavourite)
     val fabIcon: LiveData<Int> get() = mutableFabIcon
-    private var onClickDisposable: Disposable? = null
 
     private val mutableIsFabHidden: MutableLiveData<Boolean> = MutableLiveData(true)
     val isFabHidden: LiveData<Boolean> get () = mutableIsFabHidden
 
-    private val focusSubject = BehaviorSubject.createDefault(false)
-
-    private val searchTermSubject = BehaviorSubject.createDefault<CharSequence>(defaultUrl ?: "")
-    val searchTerm: LiveData<CharSequence> =
-        LiveDataReactiveStreams.fromPublisher(searchTermSubject.toFlowable(BackpressureStrategy.DROP))
-
     init {
         compositeDisposable.addAll(
-            /*
-            subscriptionRepository.getSubsctiptionByUrl(feedUri.toString())
-                .forEach {
-                    isSaved.onNext(it.isEmpty())
-                },
-            */
-
             isSaved.observeOn(AndroidSchedulers.mainThread())
                 .forEach {
                     val resId = if (it) R.drawable.avd_unfavourite
                     else R.drawable.avd_favourite
                     mutableFabIcon.value = resId
-                },
-
-            Observables.combineLatest(focusSubject, searchTermSubject)
-                .forEach {
-                    val searchSpan = SpannableString(it.second)
-
-                    if (it.first) {
-                        searchSpan.setSpan(
-                            ForegroundColorSpan(app.getColor(R.color.primaryTextColor)),
-                            0, searchSpan.length,
-                            Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    } else {
-                        searchSpan.setSpan(
-                            ForegroundColorSpan(app.getColor(R.color.secondaryDarkColor)),
-                            0, searchSpan.length,
-                            Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    }
                 }
         )
     }
@@ -107,10 +68,10 @@ class FeedPreviewActivityViewModel @Inject constructor(
     }
 
     fun onFocusChange(v: View?, hasFocus: Boolean) {
-        focusSubject.onNext(hasFocus)
+        // focusSubject.onNext(hasFocus)
     }
 
     fun onTextChanged(text: CharSequence, start: Int, before: Int, count: Int) {
-        searchTermSubject.onNext(text)
+        urlSubject.onNext(text.toString())
     }
 }

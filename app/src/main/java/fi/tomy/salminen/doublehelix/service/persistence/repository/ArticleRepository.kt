@@ -1,8 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
-import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.LiveData
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
@@ -28,14 +26,14 @@ class ArticleRepository @Inject constructor(
         return articleDao.getAll()
     }
 
-    fun getArticlesByUrl(uri: Uri): Observable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
-        return rssService.getRssFeed(uri.toString())
+    fun getArticlesByUrl(url: String): Observable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
+        return rssService.getRssFeed(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError {err ->
                 Log.e(
                     TAG,
-                    "Failed to fetch feed from $uri, Message:${err.message}"
+                    "Failed to fetch feed from $url, Message:${err.message}"
                 )
             }
             .map {
