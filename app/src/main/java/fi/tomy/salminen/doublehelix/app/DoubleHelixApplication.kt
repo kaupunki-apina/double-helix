@@ -1,16 +1,11 @@
 package fi.tomy.salminen.doublehelix.app
 
 import dagger.android.AndroidInjector
-import fi.tomy.salminen.doublehelix.inject.application.BaseApplication
+import dagger.android.DaggerApplication
 
 
-class DoubleHelixApplication : BaseApplication<AndroidInjector<DoubleHelixApplication>>() {
-
-    override fun inject() {
-        component.inject(this)
-    }
-
-    override fun createComponent(): AndroidInjector<DoubleHelixApplication> {
+class DoubleHelixApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerDoubleHelixApplicationComponent.factory().create(this)
     }
 }
