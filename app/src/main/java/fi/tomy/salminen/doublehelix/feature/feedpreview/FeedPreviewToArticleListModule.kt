@@ -28,6 +28,7 @@ abstract class FeedPreviewToArticleListModule {
             @ActivityScope urlSubject: BehaviorSubject<String>
         ): Flowable<List<ArticleListItemViewModel>> {
             return urlSubject
+                .distinctUntilChanged()
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .flatMap {
                     articleRepository.getArticlesByUrl(it)
