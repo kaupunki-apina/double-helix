@@ -30,6 +30,7 @@
                     android:layout_height="wrap_content"
                     android:onFocusChange="@{viewModel::onFocusChange}"
                     android:onTextChanged="@{viewModel::onTextChanged}"
+                    android:text="@{viewModel.url}"
                     android:background="@null"
                     android:imeOptions="actionDone"
                     android:hint="Search"

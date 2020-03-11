@@ -2,12 +2,14 @@ package fi.tomy.salminen.doublehelix.feature.feedpreview
 
 import android.view.View
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.inject.activity.ActivityScope
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
 import fi.tomy.salminen.doublehelix.viewmodel.BaseViewModel
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -24,6 +26,7 @@ class FeedPreviewActivityViewModel @Inject constructor(
 
     private val mutableIsFabHidden: MutableLiveData<Boolean> = MutableLiveData(true)
     val isFabHidden: LiveData<Boolean> get () = mutableIsFabHidden
+    val url : LiveData<String> = LiveDataReactiveStreams.fromPublisher(urlSubject.toFlowable(BackpressureStrategy.LATEST))
 
     init {
         compositeDisposable.addAll(
