@@ -22,25 +22,24 @@ class FeedPreviewActivityViewModel @Inject constructor(
     private val app: DoubleHelixApplication,
     @ActivityScope private val urlSubject: BehaviorSubject<String>
 ) : BaseViewModel() {
-    private val TAG = "FeedPreviewActivityViewModel"
     private var onClickDisposable : Disposable? = null
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.create()
     private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.avd_unfavourite)
     private val focusSubject = BehaviorSubject.createDefault(false)
     private val searchTermSubject = BehaviorSubject.create<String>()
     val fabIcon: LiveData<Int> get() = mutableFabIcon
-
-    private val mutableIsFabHidden: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isFabHidden: LiveData<Boolean> get () = mutableIsFabHidden
     val url : LiveData<String> = LiveDataReactiveStreams.fromPublisher(urlSubject.toFlowable(BackpressureStrategy.LATEST))
 
     init {
         compositeDisposable.addAll(
             urlSubject.forEach{
-                subscriptionRepository.getSubscriptionByUrlMaybe(it)
-                    .isEmpty
-                    .doOnSuccess {
-                        isSaved.onNext(!it)
+                subscriptionRepository.getSubsctiptionByUrl(it)
+                    .map { results ->
+                        results.isEmpty()
+                    }
+                    .distinctUntilChanged()
+                    .subscribe {
+                        isSaved.onNext(it)
                     }
             },
 
@@ -66,6 +65,7 @@ class FeedPreviewActivityViewModel @Inject constructor(
                 onClickDisposable = null
             }
 
+            // TODO Wrap in transaction
             val disposable = subscriptionRepository.getSubscriptionByUrlMaybe(safeUrl)
                 .isEmpty
                 .flatMapCompletable {

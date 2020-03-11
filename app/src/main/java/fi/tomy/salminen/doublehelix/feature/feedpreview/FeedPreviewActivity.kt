@@ -15,10 +15,6 @@ import kotlinx.android.synthetic.main.activity_feed_preview.*
 
 class FeedPreviewActivity : BaseActivity<FeedPreviewActivityViewModel>() {
 
-    companion object {
-        public val EXTRA_FEED_URI = "feed_preview_activity_feed_uri"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
