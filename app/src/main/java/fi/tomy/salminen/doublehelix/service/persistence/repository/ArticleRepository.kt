@@ -30,14 +30,10 @@ class ArticleRepository @Inject constructor(
         return rssService.getRssFeed(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError {err ->
-                Log.e(
-                    TAG,
-                    "Failed to fetch feed from $url, Message:${err.message}"
-                )
+            .doOnError { err ->
+                Log.e(TAG, "Failed to fetch feed from $url, Message:${err.message}")
             }
             .map {
-                "Mapping"
                 val subEntity = SubscriptionEntity.from(it)
                 Pair(subEntity, it)
             }
@@ -74,7 +70,7 @@ class ArticleRepository @Inject constructor(
                 rssService.getRssFeed(it.url)
                     .map { rssModel -> Pair(it, rssModel) }
                     .toFlowable(BackpressureStrategy.BUFFER)
-                    .doOnError {err ->
+                    .doOnError { err ->
                         // TODO Subscription should be removed if the host is not found
                         Log.e(
                             TAG,
@@ -98,7 +94,7 @@ class ArticleRepository @Inject constructor(
                     .toList()
                     .toFlowable()
             }
-            .doOnNext { it?.let {  articles -> articleDao.update(articles) } }
+            .doOnNext { it?.let { articles -> articleDao.update(articles) } }
             .ignoreElements()
     }
 }

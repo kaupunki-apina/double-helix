@@ -11,7 +11,6 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -20,19 +19,22 @@ import java.util.concurrent.TimeUnit
 @Module
 abstract class FeedPreviewToArticleListModule {
     companion object {
+
         @Provides
         @ForArticleList
         fun provideFeedSource(
             articleRepository: ArticleRepository,
             vmFactory: ArticleListItemViewModel.Factory,
+            @ActivityScope isValidUrl: BehaviorSubject<Boolean>,
             @ActivityScope urlSubject: BehaviorSubject<String>
         ): Flowable<List<ArticleListItemViewModel>> {
             return urlSubject
                 .distinctUntilChanged()
-                .debounce(500, TimeUnit.MILLISECONDS)
+                .doOnEach { isValidUrl.onNext(false) }
                 .flatMap {
                     articleRepository.getArticlesByUrl(it)
-                        // TODO Actual error handling
+                        .doOnComplete{ isValidUrl.onNext(true) }
+                        .doOnError { isValidUrl.onNext(false) }
                         .onErrorResumeNext(Observable.just(emptyList()))
                         .map { result ->
                             result.map { pair -> vmFactory.create(pair.first, pair.second) }

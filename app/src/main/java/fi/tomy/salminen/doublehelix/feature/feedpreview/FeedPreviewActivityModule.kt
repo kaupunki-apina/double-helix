@@ -15,6 +15,12 @@ abstract class FeedPreviewActivityModule {
 
     companion object {
         @Provides
+        @ActivityScope
+        fun provideIsValidUrl(): BehaviorSubject<Boolean> {
+            return BehaviorSubject.createDefault(false)
+        }
+
+        @Provides
         fun provideDefaultUrl(activity: FeedPreviewActivity): String? {
             return activity.intent?.data?.toString()
         }

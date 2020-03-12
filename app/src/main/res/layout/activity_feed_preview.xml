@@ -59,6 +59,7 @@
             android:text="@string/action_favourite"
             android:layout_margin="@dimen/margin_m"
             android:onClick="@{viewModel::onFabClick}"
+            app:hidden="@{viewModel.hideFab}"
             app:animateIcon="@{viewModel.fabIcon}"
             app:layout_anchor="@id/swipe_refresh"
             app:layout_anchorGravity="bottom|center_horizontal"/>

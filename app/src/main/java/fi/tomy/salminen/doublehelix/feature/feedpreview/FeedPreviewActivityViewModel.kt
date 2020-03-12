@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import fi.tomy.salminen.doublehelix.R
-import fi.tomy.salminen.doublehelix.app.DoubleHelixApplication
 import fi.tomy.salminen.doublehelix.inject.activity.ActivityScope
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import fi.tomy.salminen.doublehelix.service.persistence.repository.SubscriptionRepository
@@ -17,22 +16,30 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
+
 class FeedPreviewActivityViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository,
-    private val app: DoubleHelixApplication,
-    @ActivityScope private val urlSubject: BehaviorSubject<String>
+    @ActivityScope private val urlSubject: BehaviorSubject<String>,
+    @ActivityScope private val validUrlSubject: BehaviorSubject<Boolean>
 ) : BaseViewModel() {
-    private var onClickDisposable : Disposable? = null
+    private var onClickDisposable: Disposable? = null
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.create()
     private val mutableFabIcon: MutableLiveData<Int> = MutableLiveData(R.drawable.avd_unfavourite)
     private val focusSubject = BehaviorSubject.createDefault(false)
     private val searchTermSubject = BehaviorSubject.create<String>()
+    val hideFab: LiveData<Boolean> = LiveDataReactiveStreams.fromPublisher(
+        Observables.combineLatest(focusSubject, validUrlSubject)
+            .map { !(!it.first && it.second) }
+            .distinctUntilChanged()
+            .toFlowable(BackpressureStrategy.LATEST)
+    )
     val fabIcon: LiveData<Int> get() = mutableFabIcon
-    val url : LiveData<String> = LiveDataReactiveStreams.fromPublisher(urlSubject.toFlowable(BackpressureStrategy.LATEST))
+    val url: LiveData<String> =
+        LiveDataReactiveStreams.fromPublisher(urlSubject.toFlowable(BackpressureStrategy.LATEST))
 
     init {
         compositeDisposable.addAll(
-            urlSubject.forEach{
+            urlSubject.forEach {
                 subscriptionRepository.getSubsctiptionByUrl(it)
                     .map { results ->
                         results.isEmpty()
@@ -44,7 +51,7 @@ class FeedPreviewActivityViewModel @Inject constructor(
             },
 
             Observables.combineLatest(focusSubject, searchTermSubject)
-                .filter{ it.first.not() }
+                .filter { it.first.not() }
                 .forEach { urlSubject.onNext(it.second) },
 
 
