@@ -8,6 +8,8 @@ import fi.tomy.salminen.doublehelix.feature.articlelist.ArticleListFragmentModul
 import fi.tomy.salminen.doublehelix.inject.activity.ActivityScope
 import fi.tomy.salminen.doublehelix.inject.fragment.FragmentScope
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 
 
 @Module
@@ -16,8 +18,8 @@ abstract class FeedPreviewActivityModule {
     companion object {
         @Provides
         @ActivityScope
-        fun provideIsValidUrl(): BehaviorSubject<Boolean> {
-            return BehaviorSubject.createDefault(false)
+        fun provideIsValidUrl(): Subject<Boolean> {
+            return PublishSubject.create<Boolean>()
         }
 
         @Provides
@@ -27,7 +29,7 @@ abstract class FeedPreviewActivityModule {
 
         @Provides
         @ActivityScope
-        fun provideUrlSource(defaultString: String?): BehaviorSubject<String> {
+        fun provideUrlSource(defaultString: String?): Subject<String> {
             return if (defaultString != null) {
                 BehaviorSubject.createDefault(defaultString)
             } else {

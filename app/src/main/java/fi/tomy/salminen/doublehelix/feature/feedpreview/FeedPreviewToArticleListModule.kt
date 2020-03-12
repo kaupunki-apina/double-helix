@@ -10,7 +10,7 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 
 
 /**
@@ -25,8 +25,8 @@ abstract class FeedPreviewToArticleListModule {
         fun provideFeedSource(
             articleRepository: ArticleRepository,
             vmFactory: ArticleListItemViewModel.Factory,
-            @ActivityScope isValidUrl: BehaviorSubject<Boolean>,
-            @ActivityScope urlSubject: BehaviorSubject<String>
+            @ActivityScope isValidUrl: Subject<Boolean>,
+            @ActivityScope urlSubject: Subject<String>
         ): Flowable<List<ArticleListItemViewModel>> {
             return urlSubject
                 .distinctUntilChanged()

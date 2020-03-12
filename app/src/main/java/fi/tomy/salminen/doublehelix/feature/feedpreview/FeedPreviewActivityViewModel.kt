@@ -14,13 +14,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import javax.inject.Inject
 
 
 class FeedPreviewActivityViewModel @Inject constructor(
     private val subscriptionRepository: SubscriptionRepository,
-    @ActivityScope private val urlSubject: BehaviorSubject<String>,
-    @ActivityScope private val validUrlSubject: BehaviorSubject<Boolean>
+    @ActivityScope urlSubject: Subject<String>,
+    @ActivityScope val validUrlSubject: Subject<Boolean>
 ) : BaseViewModel() {
     private var onClickDisposable: Disposable? = null
     private val isSaved: BehaviorSubject<Boolean> = BehaviorSubject.create()
@@ -34,8 +35,9 @@ class FeedPreviewActivityViewModel @Inject constructor(
             .toFlowable(BackpressureStrategy.LATEST)
     )
     val fabIcon: LiveData<Int> get() = mutableFabIcon
-    val url: LiveData<String> =
-        LiveDataReactiveStreams.fromPublisher(urlSubject.toFlowable(BackpressureStrategy.LATEST))
+    val url: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
+        urlSubject.toFlowable(BackpressureStrategy.LATEST)
+    )
 
     init {
         compositeDisposable.addAll(
