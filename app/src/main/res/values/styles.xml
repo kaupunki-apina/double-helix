@@ -1,17 +1,59 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-    <style name="AppTheme.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Base app colors -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+        <!-- Extended app colors -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+
+        <!-- Text styling -->
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="android:textColorTertiary">@color/tertiaryTextColor</item>
+        <item name="android:textColorPrimaryInverse">@color/primaryTextColor</item>
+        <item name="android:textColorSecondaryInverse">@color/secondaryTextColor</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiaryTextColor</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+
+        <!-- Component styles -->
+        <!-- System components -->
+        <item name="android:statusBarColor">@color/statusBar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorEdgeEffect">@color/secondaryDarkColor</item>
+        <!-- Support library components -->
+        <item name="floatingActionButtonStyle">@style/AppTheme.FloatingActionButton</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/primaryTextColor</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="AppTheme" parent="BaseAppTheme">
+    </style>
+
+    <style name="AppTheme.ToolbarActivity" parent="AppTheme">
+        <!-- System components -->
+        <!-- Let toolbar color show under the status bar -->
+        <item name="android:statusBarColor">@color/toolBarColor</item>
+    </style>
+
+    <style name="AppTheme.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <!-- Override background drawable once supported -->
+    </style>
+    <style name="AppTheme.ExtendedFloatingActionbutton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <!-- Override background drawable once supported -->
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="AppTheme"/>
+    <style name="AppTheme.PopupOverlay" parent="AppTheme"/>
+
+    <style name="AppTheme.Touchable" parent="AppTheme">
+        <item name="android:background">@drawable/drawable_touchable</item>
+    </style>
 </resources>

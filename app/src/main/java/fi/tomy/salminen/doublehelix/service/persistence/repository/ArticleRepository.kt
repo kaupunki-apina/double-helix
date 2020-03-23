@@ -1,50 +1,100 @@
 package fi.tomy.salminen.doublehelix.service.persistence.repository
 
+import android.util.Log
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
+import fi.tomy.salminen.doublehelix.service.persistence.databaseview.ArticleDatabaseView
 import fi.tomy.salminen.doublehelix.service.persistence.entity.ArticleEntity
-import fi.tomy.salminen.doublehelix.service.persistence.viewmodel.ArticleViewModel
+import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import fi.tomy.salminen.doublehelix.service.rss.RssService
-import io.reactivex.Flowable
-import io.reactivex.Observable
+import io.reactivex.*
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ArticleRepository @Inject constructor(
-    val database: DoubleHelixDatabase,
-    val rssService: RssService
+    database: DoubleHelixDatabase,
+    private val rssService: RssService,
+    private val articleFactory: ArticleEntity.Factory,
+    val subscriptionRepository: SubscriptionRepository
 ) {
+    private val TAG = "ArticleRepository"
     private val articleDao = database.articleDao()
-    private val subscriptionDao = database.subscriptionDao()
 
-    fun getWhere(feedId: Int): Flowable<List<ArticleViewModel>> {
-        return articleDao.getWhere(feedId)
-            .map { entities ->
-                entities.map { entity ->
-                    ArticleViewModel(entity)
-                }
+    fun getArticles(): Flowable<List<ArticleDatabaseView>> {
+        return articleDao.getAll()
+    }
+
+    fun getArticlesByUrl(url: String): Observable<List<Pair<SubscriptionEntity, ArticleEntity>>> {
+        return rssService.getRssFeed(url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { err ->
+                Log.e(TAG, "Failed to fetch feed from $url, Message:${err.message}")
+            }
+            .map {
+                val subEntity = SubscriptionEntity.from(it)
+                Pair(subEntity, it)
+            }
+            .flatMap {
+                Observable.fromIterable(it.second.channel?.items)
+                    .flatMapMaybe { rssItem ->
+                        Maybe.fromSingle(articleFactory.from(rssItem, it.first))
+                            // If article cannot be parsed, ignore it
+                            .onErrorResumeNext { _: Throwable ->
+                                Log.i(
+                                    TAG,
+                                    "Parsing article failed likely due to unexpected date format - Discarding item"
+                                )
+                                Maybe.empty<ArticleEntity>()
+                            }
+                    }
+                    .map { article -> Pair(it.first, article) }
+                    .toList()
+                    .toObservable()
             }
     }
 
-    fun updateArticles(feedId: Int) {
-        subscriptionDao.getWhere(feedId)
+    fun getArticleById(articleId: Int): Maybe<ArticleDatabaseView> {
+        return articleDao.getWhereMaybe(articleId).subscribeOn(Schedulers.io())
+    }
+
+    fun updateArticles(): Completable {
+        return subscriptionRepository.getSubscriptionsMaybe()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .toFlowable()
             .flatMap { Flowable.fromIterable(it) }
-            .flatMap { subscriptionEntity ->
-                rssService.getRssFeed(subscriptionEntity.url)
-                    .map { rssModel ->
-                        rssModel.channel?.items?.map { rssItem ->
-                            ArticleEntity.from(
-                                rssItem,
-                                subscriptionEntity
-                            )
-                        }
+            .flatMap {
+                rssService.getRssFeed(it.url)
+                    .map { rssModel -> Pair(it, rssModel) }
+                    .toFlowable(BackpressureStrategy.BUFFER)
+                    .doOnError { err ->
+                        // TODO Subscription should be removed if the host is not found
+                        Log.e(
+                            TAG,
+                            "Failed to fetch feed from ${it.url}, Message:${err.message}"
+                        )
                     }
-                    .doOnEach { articleEntities ->
-                        if (articleEntities.value != null) {
-                            articleDao.update(subscriptionEntity.id, articleEntities.value!!)
-                        }
+            }
+            .flatMap {
+                Flowable.fromIterable(it.second.channel?.items)
+                    .flatMapMaybe { rssItem ->
+                        Maybe.fromSingle(articleFactory.from(rssItem, it.first))
+                            // If article cannot be parsed, ignore it
+                            .onErrorResumeNext { _: Throwable ->
+                                Log.d(
+                                    TAG,
+                                    "Parsing article failed likely due to unexpected date format - Discarding item"
+                                )
+                                Maybe.empty<ArticleEntity>()
+                            }
                     }
-            }.subscribe()
+                    .toList()
+                    .toFlowable()
+            }
+            .doOnNext { it?.let { articles -> articleDao.update(articles) } }
+            .ignoreElements()
     }
 }

@@ -5,4 +5,4 @@ import fi.tomy.salminen.doublehelix.inject.application.BaseApplicationModule
 
 
 @Module(includes = [BaseApplicationModule::class])
-internal class DoubleHelixApplicationModule
+abstract class DoubleHelixApplicationModule

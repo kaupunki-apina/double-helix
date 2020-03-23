@@ -3,7 +3,9 @@ package fi.tomy.salminen.doublehelix.service.persistence.repository
 
 import fi.tomy.salminen.doublehelix.service.persistence.DoubleHelixDatabase
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
-import io.reactivex.Observable
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -17,8 +19,32 @@ class SubscriptionRepository @Inject constructor(database: DoubleHelixDatabase) 
     val subscription = subscriptionDao.getAll()
 
 
-    fun insertSubscription(vararg subscriptionEntity: SubscriptionEntity): Observable<Unit> {
-        return Observable.fromCallable { subscriptionDao.insertAll(*subscriptionEntity) }
+    fun insertSubscription(vararg subscriptionEntity: SubscriptionEntity): Completable {
+        return Completable.fromCallable { subscriptionDao.insertAll(*subscriptionEntity) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun deleteSubscriptionByUrl(url: String) : Completable {
+        return Completable.fromCallable { subscriptionDao.deleteWhere(url) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getSubscriptionsMaybe(): Maybe<List<SubscriptionEntity>> {
+        return subscriptionDao.getAllMaybe()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getSubscriptionByUrlMaybe(url: String): Maybe<SubscriptionEntity> {
+        return subscriptionDao.getByUrlMaybe(url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getSubsctiptionByUrl(url: String): Flowable<List<SubscriptionEntity>> {
+        return subscriptionDao.getByUrl(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

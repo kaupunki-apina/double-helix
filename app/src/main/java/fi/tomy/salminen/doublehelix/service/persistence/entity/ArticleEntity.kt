@@ -1,21 +1,30 @@
 package fi.tomy.salminen.doublehelix.service.persistence.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.PrimaryKey
+import fi.tomy.salminen.doublehelix.common.DateFormatter
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
+import io.reactivex.Single
+import java.time.ZonedDateTime
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@Entity(tableName = "article", foreignKeys = [
-    ForeignKey(
-        entity = SubscriptionEntity::class,
-        parentColumns = ["id"],
-        childColumns = ["subscription_id"]
-    )
-])
-class ArticleEntity(
+
+@Entity(
+    tableName = "article", foreignKeys = [
+        ForeignKey(
+            entity = SubscriptionEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["subscriptionId"],
+            onDelete = CASCADE
+        )
+    ]
+)
+data class ArticleEntity(
     @field:Nullable
     var title: String?,
 
@@ -26,33 +35,32 @@ class ArticleEntity(
     var link: String?,
 
     @field:Nullable
-    var publishDate: String?,
+    var publishDate: ZonedDateTime?,
 
     @field:Nullable
     var imageUrl: String?,
 
     @field:NonNull
-    @field:ColumnInfo(name = "subscription_id")
     var subscriptionId: Int
 ) {
     @field:PrimaryKey(autoGenerate = true)
     @field:NonNull
     var id: Int = 0
 
-    companion object {
-        fun seed(): Array<FeedEntity> {
-            return arrayOf(FeedEntity("NASA news"))
-        }
-
-        fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): ArticleEntity {
-            return ArticleEntity(
-                rssItem.title,
-                rssItem.description,
-                rssItem.link,
-                rssItem.publishDate,
-                rssItem.image,
-                subscriptionEntity.id
-            )
+    @Singleton
+    class Factory @Inject constructor(val dateFormatter: DateFormatter) {
+        fun from(rssItem: RssModel.RssChannel.RssItem, subscriptionEntity: SubscriptionEntity): Single<ArticleEntity> {
+            return dateFormatter.parse(rssItem.publishDate)
+                .map {
+                    ArticleEntity(
+                        rssItem.title,
+                        rssItem.description,
+                        rssItem.link,
+                        it,
+                        rssItem.enclosure?.url,
+                        subscriptionEntity.id
+                    )
+                }
         }
     }
 }

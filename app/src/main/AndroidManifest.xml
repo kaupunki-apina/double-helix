@@ -2,21 +2,55 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="fi.tomy.salminen.doublehelix">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name=".app.DoubleHelixApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-
+        android:name=".app.DoubleHelixApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
-                android:name=".feature.feed.FeedActivity"
-                android:label="@string/title_activity_feed"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".feature.feedpreview.FeedPreviewActivity"
+            android:theme="@style/AppTheme.ToolbarActivity">
+            <!-- RSS Link intent filters -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:mimeType="text/xml"/>
+                <data android:mimeType="application/rss+xml"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:host="*"/>
+                <data android:pathPattern=".*rss"/>
+                <data android:pathPattern=".*rss.*"/>
+                <data android:pathPattern=".*RSS.*"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data android:scheme="rss"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".feature.mainfeed.FeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,5 +59,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

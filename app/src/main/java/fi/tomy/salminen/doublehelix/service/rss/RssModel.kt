@@ -1,6 +1,9 @@
 package fi.tomy.salminen.doublehelix.service.rss
 
-import org.simpleframework.xml.*
+import org.simpleframework.xml.Attribute
+import org.simpleframework.xml.Element
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
 
 @Root(name = "rss", strict = false)
 class RssModel {
@@ -20,7 +23,7 @@ class RssModel {
         @field:ElementList(name = "item", required = false, inline = true)
         var items: List<RssItem>? = null
 
-        @Root(name ="item", strict = false)
+        @Root(name = "item", strict = false)
         class RssItem {
 
             @field:Element(required = false)
@@ -35,9 +38,15 @@ class RssModel {
             @field:Element(name = "pubDate", required = false)
             var publishDate: String? = null
 
-            @Path("enclosure")
-            @field:Attribute(name = "url", required = false)
-            var image: String? = null
+            @field:Element(name = "enclosure", required = false)
+            var enclosure: Enclosure? = null
+        }
+
+        @Root(name = "enclosure", strict = false)
+        class Enclosure {
+            // Image url
+            @field:Attribute(required = false)
+            var url: String? = null
         }
     }
 }
