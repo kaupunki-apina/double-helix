@@ -12,7 +12,6 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_xs"
         android:stateListAnimator="@animator/touch_elevation"
         android:onClick="@{articleViewModel::onClick}"
         app:cardCornerRadius="0dp"

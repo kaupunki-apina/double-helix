@@ -18,8 +18,8 @@ import javax.inject.Inject
 
 class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
     @Inject
-    lateinit var adapter : ArticleListAdapter
-    lateinit var binding : FragmentFeedBinding
+    lateinit var adapter: ArticleListAdapter
+    lateinit var binding: FragmentFeedBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +35,7 @@ class ArticleListFragment : BaseFragment<ArticleListFragmentViewModel>() {
         super.onActivityCreated(savedInstanceState)
         val viewModel = ViewModelProviders.of(this, viewModelFactory)[ArticleListFragmentViewModel::class.java]
         binding.viewModel = viewModel
+        feed_view.addItemDecoration(MarginDecorator(0, resources.getDimension(R.dimen.margin_s).toInt()))
         feed_view.adapter = adapter
         feed_view.layoutManager = LinearLayoutManager(requireContext())
         viewModel.articles.observe(this, Observer {
