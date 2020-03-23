@@ -13,15 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_xs"
-        app:cardCornerRadius="0dp">
+        android:stateListAnimator="@animator/touch_elevation"
+        android:onClick="@{articleViewModel::onClick}"
+        app:cardCornerRadius="0dp"
+        app:rippleColor="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/AppTheme.Touchable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{articleViewModel::onClick}"
             android:paddingTop="@dimen/margin_m"
             android:paddingBottom="@dimen/margin_m">
 
