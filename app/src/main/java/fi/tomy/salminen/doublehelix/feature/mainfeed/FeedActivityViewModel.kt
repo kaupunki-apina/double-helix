@@ -16,10 +16,12 @@ class FeedActivityViewModel @Inject constructor(
         compositeDisposable.addAll(
             articleRepository.updateArticles().subscribe(),
 
-            subscriptionRepository.getUrls().forEach {
-                articleRepository.updateArticles()
+            subscriptionRepository.getUrls()
+                .distinctUntilChanged()
+                .forEach {
+                    articleRepository.updateArticles()
                     .subscribe()
-            }
+                }
         )
     }
 }
