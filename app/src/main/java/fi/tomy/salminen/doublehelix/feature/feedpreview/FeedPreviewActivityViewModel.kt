@@ -33,6 +33,7 @@ class FeedPreviewActivityViewModel @Inject constructor(
             .map { !(!it.first && it.second) }
             .distinctUntilChanged()
             .toFlowable(BackpressureStrategy.LATEST)
+            .startWith(true)
     )
     val fabIcon: LiveData<Int> get() = mutableFabIcon
     val url: LiveData<String> = LiveDataReactiveStreams.fromPublisher(
