@@ -43,6 +43,12 @@ class SubscriptionRepository @Inject constructor(database: DoubleHelixDatabase) 
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun getUrls(): Flowable<List<String>> {
+        return subscriptionDao.getUrls()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     fun getSubscriptionByUrlMaybe(url: String): Maybe<SubscriptionEntity> {
         return subscriptionDao.getByUrlMaybe(url)
             .subscribeOn(Schedulers.io())
