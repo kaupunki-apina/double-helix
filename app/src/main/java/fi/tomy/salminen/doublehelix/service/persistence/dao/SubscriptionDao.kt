@@ -20,6 +20,9 @@ interface SubscriptionDao {
     @Query("SELECT * FROM subscription WHERE url = :url")
     fun getByUrl(url: String) : Flowable<List<SubscriptionEntity>>
 
+    @Query("SELECT url FROM subscription")
+    fun getUrls(): Flowable<List<String>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg dataEntities: SubscriptionEntity) : List<Long>
 
