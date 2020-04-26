@@ -3,11 +3,14 @@ package fi.tomy.salminen.doublehelix.service.persistence.entity
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import fi.tomy.salminen.doublehelix.service.rss.RssModel
 
 
-@Entity(tableName = "subscription")
+@Entity(tableName = "subscription", indices = [
+    Index( value = ["url"], unique = true)
+])
 data class SubscriptionEntity(
     @field:NonNull
     var url: String,
@@ -28,8 +31,8 @@ data class SubscriptionEntity(
             )
         }
 
-        fun from(rssModel: RssModel) : SubscriptionEntity {
-            return SubscriptionEntity("", rssModel.channel?.title)
+        fun from(rssModel: RssModel, url: String = "") : SubscriptionEntity {
+            return SubscriptionEntity(url, rssModel.channel?.title)
         }
 
         fun from(url: String) : SubscriptionEntity {

@@ -17,7 +17,7 @@ class ArticleRepository @Inject constructor(
     database: DoubleHelixDatabase,
     private val rssService: RssService,
     private val articleFactory: ArticleEntity.Factory,
-    val subscriptionRepository: SubscriptionRepository
+    private val subscriptionRepository: SubscriptionRepository
 ) {
     private val TAG = "ArticleRepository"
     private val articleDao = database.articleDao()
@@ -34,7 +34,7 @@ class ArticleRepository @Inject constructor(
                 Log.e(TAG, "Failed to fetch feed from $url, Message:${err.message}")
             }
             .map {
-                val subEntity = SubscriptionEntity.from(it)
+                val subEntity = SubscriptionEntity.from(it, url)
                 Pair(subEntity, it)
             }
             .flatMap {
@@ -68,6 +68,14 @@ class ArticleRepository @Inject constructor(
             .flatMap { Flowable.fromIterable(it) }
             .flatMap {
                 rssService.getRssFeed(it.url)
+                    .doOnEach { notif ->
+                        notif.value?.let { rssModel ->
+                            val subEntity = SubscriptionEntity.from(rssModel, it.url)
+                            subscriptionRepository.updateDescription(subEntity)
+                                .doOnError { /*no-op*/ }
+                                .subscribe()
+                        }
+                    }
                     .map { rssModel -> Pair(it, rssModel) }
                     .toFlowable(BackpressureStrategy.BUFFER)
                     .doOnError { err ->
@@ -77,6 +85,11 @@ class ArticleRepository @Inject constructor(
                             "Failed to fetch feed from ${it.url}, Message:${err.message}"
                         )
                     }
+            }
+            .doOnEach {
+                it.value?.first?.let { subscriptionEntity ->
+                    subscriptionRepository.insertSubscription(subscriptionEntity).subscribe()
+                }
             }
             .flatMap {
                 Flowable.fromIterable(it.second.channel?.items)
