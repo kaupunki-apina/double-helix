@@ -1,12 +1,14 @@
 package fi.tomy.salminen.doublehelix.feature.mainfeed
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import fi.tomy.salminen.doublehelix.R
 import fi.tomy.salminen.doublehelix.common.ChromeCustomTabBinder
+import fi.tomy.salminen.doublehelix.feature.feedpreview.FeedPreviewActivity
 import fi.tomy.salminen.doublehelix.inject.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
@@ -34,7 +36,8 @@ class FeedActivity : BaseActivity<FeedActivityViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_feed_add -> {
-                // Launch preview activity
+                val previewIntent = Intent(this, FeedPreviewActivity::class.java)
+                startActivity(previewIntent)
                 return true
             }
             else -> {
