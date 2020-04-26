@@ -1,8 +1,6 @@
 package fi.tomy.salminen.doublehelix.service.persistence.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import fi.tomy.salminen.doublehelix.service.persistence.entity.SubscriptionEntity
 import io.reactivex.Flowable
 import io.reactivex.Maybe
@@ -22,8 +20,14 @@ interface SubscriptionDao {
     @Query("SELECT * FROM subscription WHERE url = :url")
     fun getByUrl(url: String) : Flowable<List<SubscriptionEntity>>
 
-    @Insert
-    fun insertAll(vararg dataEntities: SubscriptionEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(vararg dataEntities: SubscriptionEntity) : List<Long>
+
+    @Update
+    fun update(vararg dataEntities: SubscriptionEntity)
+
+    @Query("UPDATE subscription SET description = :description WHERE url = :url")
+    fun updateDescription(description: String, url: String)
 
     @Query("DELETE FROM subscription WHERE url = :url")
     fun deleteWhere(url: String)

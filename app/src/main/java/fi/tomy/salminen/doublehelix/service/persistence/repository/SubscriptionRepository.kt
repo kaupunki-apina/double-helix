@@ -20,7 +20,13 @@ class SubscriptionRepository @Inject constructor(database: DoubleHelixDatabase) 
 
 
     fun insertSubscription(vararg subscriptionEntity: SubscriptionEntity): Completable {
-        return Completable.fromCallable { subscriptionDao.insertAll(*subscriptionEntity) }
+        return Completable.fromCallable { subscriptionDao.insert(*subscriptionEntity) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun updateDescription(subscriptionEntity: SubscriptionEntity): Completable {
+        return Completable.fromCallable { subscriptionDao.updateDescription(subscriptionEntity.description ?: "", subscriptionEntity.url) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
