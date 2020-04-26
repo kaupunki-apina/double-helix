@@ -6,4 +6,7 @@
     <dimen name="margin_s">12dp</dimen>
     <dimen name="margin_m">16dp</dimen>
     <dimen name="margin_l">24dp</dimen>
+
+    <!-- Use sp as metric so that the indicator scales with accessibility settings-->
+    <dimen name="color_indicator_size">13sp</dimen>
 </resources>

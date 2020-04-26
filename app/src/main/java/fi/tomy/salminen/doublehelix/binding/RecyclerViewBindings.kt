@@ -1,10 +1,11 @@
 package fi.tomy.salminen.doublehelix.binding
 
 
+import android.graphics.Color
+import android.view.View
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 
-@BindingAdapter("adapter")
-fun bindAdapter(recyclerView: RecyclerView, adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>) {
-    recyclerView.adapter = adapter
+@BindingAdapter("backgroundColor")
+fun bindAdapter(view: View, color : Color) {
+    view.setBackgroundColor(color.toArgb())
 }

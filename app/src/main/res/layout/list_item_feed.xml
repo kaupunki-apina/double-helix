@@ -23,16 +23,28 @@
             android:paddingTop="@dimen/margin_m"
             android:paddingBottom="@dimen/margin_m">
 
+            <View
+                android:layout_marginStart="@dimen/margin_m"
+                android:id="@+id/feed_item_subscription_color_id"
+                android:layout_width="@dimen/color_indicator_size"
+                android:layout_height="@dimen/color_indicator_size"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@id/feed_item_subscription"
+                app:layout_constraintBottom_toBottomOf="@id/feed_item_subscription"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/ic_sub_color_background"
+                app:backgroundColor="@{articleViewModel.subscriptionColor}"/>
             <TextView
                 android:id="@+id/feed_item_subscription"
                 style="@style/TextAppearance.AppTheme.FeedItem.Subtle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_m"
+                android:layout_marginEnd="@dimen/margin_m"
+                android:layout_marginStart="@dimen/margin_xs"
                 android:text='@{articleViewModel.subscription}'
                 tools:text="Subscription"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/feed_item_subscription_color_id"
                 app:layout_constraintEnd_toStartOf="@id/feed_item_publish_date"
                 app:layout_constraintHorizontal_chainStyle="spread"/>
 
